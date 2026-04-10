@@ -1,0 +1,36 @@
+title: "컨텍스트 계층"
+phase: 1
+module: 2
+track: basic
+duration: 30min
+objective: "AI의 기억 범위(컨텍스트 윈도우)와 한계, 압축 전략을 이해한다"
+
+key_concepts:
+  - 컨텍스트 윈도우 (Context Window)
+  - 토큰 (Token)
+  - 3단계 압축 (MicroCompact / AutoCompact / FullCompact)
+  - 비용-정확도 trade-off
+
+problem_scenario:
+  question: "대화가 길어지면 왜 터지나?"
+  case: "토큰 한도 초과 → API 에러 → 대화 중단"
+  insight: "압축 없이 전체 이력을 보내면 비용 폭발 + 한도 초과"
+
+diagram_type: visualization
+diagram_title: "컨텍스트 윈도우 시각화"
+diagram_description: |
+  윈도우 안: 시스템 프롬프트 + 규칙 + 대화 이력 + 도구 결과
+  윈도우 밖: 밀려난 이전 대화 (잊어버림)
+  압축 트리거: 70% 도달 시 AutoCompact, 90% 도달 시 FullCompact
+
+corthex_connection: |
+  현재 loadConversationHistory()가 전체 이력 로드.
+  압축 없음 — Phase 3+에서 필요할 기능.
+
+concepts:
+  - context-window
+  - token
+  - compaction
+  - token-budget
+
+verdict: "압축이 필요한 이유와 3단계(Micro/Auto/Full)를 설명 가능"

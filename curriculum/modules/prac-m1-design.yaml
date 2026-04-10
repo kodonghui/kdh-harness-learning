@@ -1,0 +1,29 @@
+title: "미니 하네스 설계"
+phase: practical
+module: 1
+track: practical
+duration: 30min
+objective: "Claude Agent SDK 기반 미니 하네스의 요구사항을 정의한다"
+note: "CORTHEX와 별개 프로젝트"
+
+scope:
+  - 도구 3~5개 (Read, Write, Bash, WebSearch 등)
+  - 서킷브레이커 (3회 실패 → 중단)
+  - 기본 컨텍스트 관리 (토큰 추적 + 요약 압축)
+  - 세션 관리 (resume 가능)
+
+deliverable:
+  - 요구사항 정의서
+  - Claude Code에게 줄 설계 지시문
+
+exercise:
+  type: 설계
+  description: |
+    "내가 원하는 미니 하네스"의 요구사항을 5개 항목으로 작성한다.
+    그 요구사항을 Claude Code에게 전달할 지시문으로 변환한다.
+
+concepts:
+  - agent-sdk
+  - harness-requirements
+
+verdict: "미니 하네스 요구사항 정의서를 작성 가능"

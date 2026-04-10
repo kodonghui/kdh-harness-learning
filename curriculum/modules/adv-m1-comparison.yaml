@@ -1,0 +1,31 @@
+title: "하네스 공통 패턴 비교"
+phase: advanced
+module: 1
+track: advanced
+duration: 30min
+objective: "같은 문제를 다른 하네스가 어떻게 풀었는지 구조로 비교한다"
+
+comparison_targets:
+  - Claude Code (Anthropic 공식)
+  - claw-code (Rust 클린룸 재구현, 179K stars)
+  - Managed Agents (Anthropic 클라우드)
+  - OpenDev (학술 논문 기반)
+
+comparison_axes:
+  - 컨텍스트 관리 방식
+  - 도구 시스템 구조
+  - 실패 복구 전략
+  - 관측성 구현
+
+diagram_type: comparison-table
+diagram_title: "하네스 패턴 비교표"
+diagram_description: |
+  4개 하네스 x 4개 축 비교표 (구조 중심, 벤더 인상평 아님)
+
+note: "특정 제품을 추천하지 않음. 패턴의 차이를 이해하는 것이 목표."
+
+concepts:
+  - harness-patterns
+  - architecture-comparison
+
+verdict: "같은 문제를 2개 이상의 하네스가 다르게 푸는 사례를 설명 가능"

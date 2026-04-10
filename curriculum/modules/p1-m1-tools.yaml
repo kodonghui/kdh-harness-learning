@@ -1,0 +1,34 @@
+title: "도구 계층"
+phase: 1
+module: 1
+track: basic
+duration: 30min
+objective: "에이전트가 쓰는 도구를 어떻게 관리하고 제한하는지 이해한다"
+
+key_concepts:
+  - 도구 레지스트리 (Tool Registry)
+  - 권한 게이트 (Permission Gate)
+  - 도구 수와 성능의 관계
+
+problem_scenario:
+  question: "도구가 너무 많으면 어떻게 되나?"
+  case: "Vercel — 도구 80% 제거 후 오히려 성능 향상"
+  insight: "도구가 많을수록 모델의 선택 부담 증가 → 실패율 상승"
+
+diagram_type: structure
+diagram_title: "도구 레지스트리 구조"
+diagram_description: |
+  도구 목록 → 권한 분류(LOW/MEDIUM/HIGH) → 모델에 노출되는 도구 필터링
+
+reading_allowed:
+  - 설정 파일 (tools 정의)
+  - 의사코드
+
+corthex_connection: "tools/index.ts — 현재 Phase 2 기초 수준"
+
+concepts:
+  - tool-registry
+  - permission-gate
+  - tool-schema
+
+verdict: "도구 레지스트리가 왜 필요한지 설명 가능"

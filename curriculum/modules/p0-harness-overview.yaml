@@ -1,0 +1,35 @@
+title: "하네스 전체 그림"
+phase: 0
+module: 1
+track: basic
+duration: 30min
+objective: "하네스가 뭔지, 모델과의 차이, 전체 구조를 파악한다"
+
+concept_pairs:
+  - ["하네스", "모델"]
+  - ["도구(Tool)", "스킬(Skill)"]
+  - ["컨텍스트", "메모리"]
+  - ["실패감지", "복구"]
+  - ["에이전트 능력", "하네스 책임"]
+
+diagram_type: flowchart
+diagram_title: "요청 1건의 여정"
+diagram_description: |
+  입력 → 규칙 확인 → 도구 선택 → 실행 → 응답
+  여정 위에 6계층(도구/컨텍스트/검증/상태/안전/관측) 위치 표시
+  6계층은 "작업용 렌즈"로 소개 (정답이 아님)
+
+exercise:
+  type: 감별
+  description: "동희님의 에이전트 33개 중 5개 골라서 역할 설명"
+
+corthex_connection: "agent-engine.ts가 이 여정을 담당"
+
+concepts:
+  - agent-harness
+  - tool
+  - context-window
+  - stub
+  - circuit-breaker
+
+verdict: "하네스와 모델의 차이를 한 문장으로 설명 가능"

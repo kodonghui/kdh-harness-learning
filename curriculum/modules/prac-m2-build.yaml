@@ -1,0 +1,24 @@
+title: "미니 하네스 구현"
+phase: practical
+module: 2
+track: practical
+duration: 30-45min
+objective: "Claude Code가 코드를 작성하고, 동희님이 결과를 판정한다"
+note: "동희님은 코딩하지 않음. Claude Code가 구현."
+
+process:
+  1: "M1의 설계 지시문을 Claude Code에게 전달"
+  2: "Claude Code가 Agent SDK 기반 코드 작성"
+  3: "동희님이 실행해서 동작 확인"
+  4: "요구사항 대비 결과 판정"
+
+downgrade_path:
+  level_1: "Claude Agent SDK로 실제 구현 (기본)"
+  level_2: "설정 파일 기반 조립 (코드가 아닌 설정만 변경)"
+  level_3: "로그 기반 가상 운영 (기존 하네스 로그를 읽고 판단 연습)"
+
+concepts:
+  - agent-sdk-implementation
+  - result-verification
+
+verdict: "Claude Code에게 구현을 시키고, 결과가 요구사항을 충족하는지 판정 가능"

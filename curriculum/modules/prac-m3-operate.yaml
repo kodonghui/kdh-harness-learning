@@ -1,0 +1,23 @@
+title: "운영 + 개선"
+phase: practical
+module: 3
+track: practical
+duration: 30min
+objective: "미니 하네스를 실제로 운영하고, 문제를 발견하고, 개선을 지시한다"
+
+process:
+  1: "미니 하네스에 실제 요청을 보내고 결과 관찰"
+  2: "문제 발견 (예: 타임아웃, 도구 에러, 컨텍스트 초과)"
+  3: "Phase 2에서 배운 경계 진단으로 원인 판별"
+  4: "개선 지시문 작성 → Claude Code에게 전달"
+  5: "수정 후 재검증"
+
+deliverable:
+  - 동작하는 미니 하네스 1개
+  - 개선 이력 (문제 → 원인 → 지시 → 결과)
+
+concepts:
+  - harness-operation
+  - iterative-improvement
+
+verdict: "운영 중 발견한 문제를 명확한 지시로 전환 가능"

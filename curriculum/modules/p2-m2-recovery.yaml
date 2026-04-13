@@ -1,0 +1,43 @@
+title: "복구 패턴"
+phase: 2
+module: 2
+track: basic
+duration: 30min
+objective: "실패 후 복구하는 3가지 패턴을 이해한다"
+
+key_concepts:
+  - 체크포인트 (Checkpoint) — 진행 상황 저장점
+  - DLQ (Dead Letter Queue) — 처리 실패한 작업을 모아두는 곳
+  - 크래시 복구 (Crash Recovery) — 비정상 종료 후 이어서 작업
+  - 그레이스풀 종료 (Graceful Shutdown) — 정리하고 끄기
+  - 멀티에이전트 조정 — 여러 에이전트 중 하나가 죽었을 때
+
+problem_scenario:
+  question: "에이전트가 중간에 죽었다 — 처음부터 다시 해야 하나?"
+  cases:
+    - "체크포인트 있으면: 저장점부터 이어서"
+    - "체크포인트 없으면: 처음부터 다시 (비용 + 시간 낭비)"
+    - "DLQ 있으면: 실패한 작업만 나중에 재처리"
+    - "DLQ 없으면: 실패한 작업이 그냥 사라짐"
+
+diagram_type: decision-tree
+diagram_title: "복구 의사결정 트리"
+diagram_description: |
+  실패 발생 → 체크포인트 있나?
+  → Yes: 저장점 로드 → 이어서 실행
+  → No: 재시작 가능한가?
+    → Yes: 처음부터 재실행
+    → No: DLQ에 적재 → 나중에 재처리
+
+corthex_connection: |
+  DLQ: queue.ts:246에 TODO만 있음 ("Phase 4: dead-letter queue scan")
+  체크포인팅: 없음 (git 커밋이 부분적 역할)
+  그레이스풀 종료: stopQueue({ graceful: true, timeout: 5000 }) 있음
+
+concepts:
+  - checkpoint
+  - dead-letter-queue
+  - crash-recovery
+  - graceful-shutdown
+
+verdict: "복구 패턴 3가지(체크포인트/DLQ/크래시복구)를 이름+용도로 설명 가능"

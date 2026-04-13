@@ -1,0 +1,24 @@
+title: "하네스 설계 실습"
+phase: advanced
+module: 2
+track: advanced
+duration: 30min
+objective: "새 프로젝트에서 하네스 요구사항을 도출하는 판단력을 기른다"
+
+exercise:
+  type: 설계
+  description: |
+    가상 프로젝트 시나리오가 주어진다.
+    5개 항목으로 하네스 요구사항을 정리한다.
+  items:
+    - "도구 목록: 어떤 도구가 필요한가?"
+    - "컨텍스트 전략: 어떻게 압축하고 관리할 것인가?"
+    - "실패 복구 방식: 어떤 복구 패턴을 쓸 것인가?"
+    - "관측 범위: 뭘 모니터링할 것인가?"
+    - "비용 제한: 토큰 예산을 어떻게 설정할 것인가?"
+
+concepts:
+  - harness-design
+  - requirements-analysis
+
+verdict: "새 프로젝트의 하네스 요구사항을 5개 항목으로 정리 가능"

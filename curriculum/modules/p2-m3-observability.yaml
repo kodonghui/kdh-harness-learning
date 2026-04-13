@@ -1,0 +1,44 @@
+title: "관측성 + 검증"
+phase: 2
+module: 3
+track: basic
+duration: 30min
+objective: "하네스 품질을 판단하는 기준을 알고, 진단 카드를 사용한다"
+
+key_concepts:
+  - 관측성 (Observability) — 로그, 토큰 추적, 이벤트 기록
+  - 하네스 품질 판정 기준
+  - 하네스 진단 카드
+
+problem_scenario:
+  question: "하네스가 잘 돌아가는 것 같은데, 정말 잘 돌아가는 건가?"
+  insight: |
+    "잘 돌아간다"의 기준이 없으면 판단 불가.
+    좋은 하네스 = 실패를 빨리 감지 + 빨리 복구 + 비용 통제 + 사람이 확인 가능
+
+deliverable:
+  name: "하네스 진단 카드"
+  fields:
+    - "경계 설정: 도구/권한 범위가 명확한가?"
+    - "실패 감지: 실패를 얼마나 빨리 알 수 있는가?"
+    - "복구: 실패 후 자동/수동 복구 경로가 있는가?"
+    - "관측성: 무슨 일이 일어나는지 볼 수 있는가?"
+    - "비용 통제: 비용 폭탄 방지 장치가 있는가?"
+    - "테스트: 하네스 자체를 테스트할 수 있는가?"
+
+diagram_type: radar-chart
+diagram_title: "하네스 품질 레이더 차트"
+diagram_description: |
+  6축: 경계설정 / 실패감지 / 복구 / 관측성 / 비용통제 / 테스트
+  각 축 1~5점. CORTHEX 현재 점수를 채워보는 실습.
+
+corthex_connection: |
+  run_events 테이블 (관측성 기초)
+  토큰 사용량 기록 (inputTokens/outputTokens)
+
+concepts:
+  - observability
+  - harness-quality
+  - monitoring
+
+verdict: "하네스 품질을 판단하는 기준 3가지를 제시 가능"

@@ -1,0 +1,32 @@
+title: "평가와 벤치마크 — 잘 하고 있나?"
+phase: 5
+module: 3
+track: basic
+duration: 20min
+objective: "에이전트 성능을 측정하는 방법과 주요 벤치마크를 이해한다"
+
+key_concepts:
+  - 벤치마크 (Benchmark) — 에이전트 성능을 객관적으로 비교하는 시험
+  - Pass@N — N번 시도 중 1번이라도 성공할 확률
+  - 6가지 평가 축 — 과제완료, 효율/비용, 도구사용, 계획품질, 견고성, 안전
+  - SWE-bench — 코딩 에이전트 벤치마크 (실제 GitHub 이슈 해결)
+  - 비결정성 문제 — 같은 입력에도 다른 결과 나올 수 있음
+
+concept_pairs:
+  - ["Pass@1 (한 번에 성공)", "Pass@8 (8번 중 1번 성공)"]
+  - ["벤치마크 (시험)", "실제 성능 (현실)"]
+
+exercise:
+  type: 구분
+  description: |
+    "Claude Code가 SWE-bench에서 몇 % 맞추나?"를 찾아보고,
+    그게 실제 업무 성능과 같은지/다른지 생각해보기
+
+concepts:
+  - benchmark
+  - pass-at-n
+  - evaluation-axes
+  - swe-bench
+  - non-determinism
+
+verdict: "에이전트를 평가하는 6가지 축을 나열 가능"

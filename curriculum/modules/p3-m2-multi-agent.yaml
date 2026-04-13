@@ -1,0 +1,42 @@
+title: "서브에이전트와 멀티에이전트"
+phase: 3
+module: 2
+track: basic
+duration: 25min
+objective: "서브에이전트가 뭔지, 멀티에이전트 협업이 어떻게 되는지 이해한다"
+
+key_concepts:
+  - 서브에이전트 (Subagent) — 메인 에이전트가 소환하는 전문가 (별도 컨텍스트)
+  - 컨텍스트 격리 — 서브에이전트는 자기만의 돋보기를 가짐 (메인 오염 방지)
+  - 멀티에이전트 오케스트레이션 — 여러 에이전트가 협업하는 구조
+  - 워크트리 격리 (Worktree) — 서브에이전트가 별도 폴더에서 작업 (파일 충돌 방지)
+  - Fork-Join — 여러 서브에이전트 동시 실행 → 결과 합치기
+
+concept_pairs:
+  - ["메인 에이전트 (지휘자)", "서브에이전트 (연주자)"]
+  - ["컨텍스트 격리 (각자 돋보기)", "컨텍스트 공유 (같은 돋보기)"]
+  - ["순차 실행 (하나씩)", "병렬 실행 (동시에)"]
+
+diagram_type: structure
+diagram_title: "서브에이전트 구조"
+diagram_description: |
+  메인 에이전트 (동희님과 대화)
+  ├── code-reviewer (코드 검사 전문)
+  ├── security-reviewer (보안 전문)
+  └── e2e-runner (테스트 전문)
+  각각 별도 컨텍스트, 작업 끝나면 결과만 돌려줌
+
+exercise:
+  type: 구분
+  description: |
+    동희님이 만든 agents/ 폴더의 34개 에이전트 중
+    5개를 골라 "이건 언제 소환되는 건지" 설명
+
+concepts:
+  - subagent
+  - context-isolation
+  - multi-agent-orchestration
+  - worktree-isolation
+  - fork-join
+
+verdict: "서브에이전트가 왜 별도 컨텍스트를 갖는지 설명 가능"

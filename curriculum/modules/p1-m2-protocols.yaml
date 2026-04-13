@@ -1,0 +1,39 @@
+title: "프로토콜 — 연결의 규격"
+phase: 1
+module: 2
+track: basic
+duration: 25min
+objective: "API, MCP, A2A가 뭔지, 왜 필요한지, 어떻게 다른지 이해한다"
+
+key_concepts:
+  - API (Application Programming Interface) — 프로그램끼리 대화하는 약속
+  - MCP (Model Context Protocol) — 에이전트가 도구에 연결하는 표준 규격
+  - A2A (Agent-to-Agent Protocol) — 에이전트끼리 대화하는 표준 규격
+  - 프로토콜 3층 스택 — API(기본통신) → MCP(도구연결) → A2A(에이전트간)
+
+concept_pairs:
+  - ["API (기본 대화)", "MCP (도구 연결)"]
+  - ["MCP (에이전트↔도구)", "A2A (에이전트↔에이전트)"]
+
+diagram_type: structure
+diagram_title: "프로토콜 3층 스택"
+diagram_description: |
+  Layer 3: A2A — 에이전트 ↔ 에이전트 통신
+  Layer 2: MCP — 에이전트 ↔ 도구 연결
+  Layer 1: API — 기본 통신 (HTTP, JSON)
+
+exercise:
+  type: 구분
+  description: |
+    Claude Code가 GitHub에 코드 올릴 때 → 어느 프로토콜?
+    두 에이전트가 협업할 때 → 어느 프로토콜?
+
+corthex_connection: "동희님의 kdh-pipelines에서 MCP 서버 연결이 이것"
+
+concepts:
+  - api
+  - mcp
+  - a2a
+  - protocol-stack
+
+verdict: "MCP와 A2A의 차이를 한 문장으로 설명 가능"

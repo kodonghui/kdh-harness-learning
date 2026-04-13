@@ -1,0 +1,40 @@
+title: "관측성 — 안에서 뭐 하는지 보기"
+phase: 5
+module: 1
+track: basic
+duration: 25min
+objective: "에이전트의 동작을 관찰하는 방법(로그, 트레이싱, 모니터링)을 이해한다"
+
+key_concepts:
+  - 관측성 (Observability) — 에이전트 안에서 뭐 하는지 볼 수 있는 능력
+  - 로그 (Log) — 에이전트가 한 일의 기록 (일지)
+  - 트레이싱 (Tracing) — 요청 하나가 어떤 경로로 처리됐는지 추적
+  - 모니터링 (Monitoring) — 실시간으로 상태 확인 (대시보드)
+  - statusline — 지금 뭐 하는 중인지 한 줄로 보여주기
+
+concept_pairs:
+  - ["로그 (과거 기록)", "모니터링 (실시간)"]
+  - ["뭘 봐야 하는지 아는 것", "도구가 있는 것"]
+
+diagram_type: structure
+diagram_title: "관측성 3요소"
+diagram_description: |
+  로그: "뭘 했는지" 기록 (과거)
+  트레이싱: "어떤 경로로 했는지" 추적 (흐름)
+  모니터링: "지금 어떤 상태인지" 실시간 (현재)
+
+exercise:
+  type: 구분
+  description: |
+    동희님의 hooks/statusline.sh = 모니터링
+    session-data/*.tmp = 로그
+    "봐도 모르겠다" = 뭘 봐야 하는지 모르는 문제
+
+concepts:
+  - observability
+  - logging
+  - tracing
+  - monitoring
+  - statusline
+
+verdict: "로그, 트레이싱, 모니터링의 차이를 설명 가능"

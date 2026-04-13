@@ -1,0 +1,32 @@
+title: "실패감지와 복구"
+phase: 4
+module: 2
+track: basic
+duration: 25min
+objective: "실패의 3가지 원인(모델/프롬프트/하네스)을 구분하고 복구 전략을 이해한다"
+
+key_concepts:
+  - 실패감지 (Detection) — "어, 뭔가 잘못됐다" 아는 것
+  - 복구 (Recovery) — 잘못된 걸 알고 대처하는 것 (우회, 재시도, 에스컬레이션)
+  - 실패 3경계 — 모델 잘못 / 프롬프트 잘못 / 하네스 잘못
+  - 에스컬레이션 — 에이전트가 "저 못하겠어요" 하고 사람에게 넘기기
+  - 그레이스풀 디그레이데이션 — 완전 실패 대신 부분적으로라도 결과 주기
+
+concept_pairs:
+  - ["감지 (알아채기)", "복구 (대처하기)"]
+  - ["모델 잘못 (대충 봄)", "하네스 잘못 (잘라서 줌)"]
+  - ["재시도 (다시 해봄)", "에스컬레이션 (사람에게 넘김)"]
+
+problem_scenario:
+  question: "같은 증상인데 원인이 다를 수 있다?"
+  case: "파일 앞부분만 읽는 문제 — 하네스가 잘라서 줬나? 모델이 대충 봤나? 컨텍스트 넘쳤나?"
+  insight: "같아 보여도 원인이 다르면 해결법도 다름"
+
+concepts:
+  - failure-detection
+  - recovery
+  - failure-three-boundaries
+  - escalation
+  - graceful-degradation
+
+verdict: "같은 증상의 원인을 모델/프롬프트/하네스로 구분 가능"

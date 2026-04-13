@@ -1,0 +1,32 @@
+title: "상태 관리 + 안전장치"
+phase: 4
+module: 1
+track: basic
+duration: 30min
+objective: "에이전트의 작업 상태 관리, 폭주 방지, 인간 승인 포인트를 이해한다"
+
+key_concepts:
+  - 세션 관리 (Session Management) — 대화 시작~끝까지의 상태 추적
+  - 서킷브레이커 (Circuit Breaker) — 3번 실패하면 아예 멈추는 안전장치
+  - 토큰 예산 (Token Budget) — "이만큼만 쓸 수 있어" 제한
+  - 권한 3단계 — Auto(자동승인), Ask(물어보기), Deny(차단)
+  - 인간 승인 포인트 (Human Approval) — 위험한 작업 전 사람에게 묻기
+
+concept_pairs:
+  - ["재시도 (같은 걸 다시)", "서킷브레이커 (3번 실패면 멈춤)"]
+  - ["Auto (알아서)", "Ask (물어보기)"]
+  - ["토큰 예산 (비용 제한)", "서킷브레이커 (실패 제한)"]
+
+problem_scenario:
+  question: "에이전트가 무한루프 돌면서 비용 폭탄 나면?"
+  case: "Claude Code 250,000 API 콜/일 사고 — 서킷브레이커 3줄로 해결"
+  insight: "재시도 = 같은 걸 다시. 서킷브레이커 = 3번 실패하면 아예 멈춤"
+
+concepts:
+  - session-management
+  - circuit-breaker
+  - token-budget
+  - permission-tiers
+  - human-approval
+
+verdict: "서킷브레이커와 재시도의 차이를 사례로 설명 가능"

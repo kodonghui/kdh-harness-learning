@@ -1,0 +1,38 @@
+title: "에이전트란 뭔가"
+phase: 0
+module: 0
+track: basic
+duration: 20min
+objective: "에이전트가 뭔지, 어떻게 만들어지는지, LLM과 뭐가 다른지 이해한다"
+
+key_concepts:
+  - 에이전트 (Agent) — LLM + 하네스 = 일 할 수 있는 존재
+  - LLM vs 에이전트 차이 — 뇌만 vs 뇌+몸+도구
+  - 에이전트가 만들어지는 과정 — LLM에 도구/규칙/메모리를 씌우면 에이전트가 됨
+  - 에이전트의 역할 — 사람 대신 판단하고 실행하는 존재
+  - CLAUDE.md vs 에이전트.md — 사규(전체 공통) vs 업무매뉴얼(에이전트별 1개씩)
+  - 에이전트 소환 흐름 — CLAUDE.md 읽고 → 작업 → 전문 에이전트.md 읽은 서브에이전트 소환
+
+concept_pairs:
+  - ["LLM (뇌)", "에이전트 (뇌+몸)"]
+  - ["에이전트", "하네스"]
+  - ["에이전트", "도구"]
+
+diagram_type: structure
+diagram_title: "에이전트 = LLM + 하네스"
+diagram_description: |
+  LLM(뇌) + 하네스(도구+규칙+메모리+안전장치) = 에이전트
+  LLM 혼자 = 생각만 함, 실행 못함
+  에이전트 = 생각 + 실행 가능
+
+exercise:
+  type: 구분
+  description: "Claude(LLM)와 Claude Code(에이전트)의 차이를 예시로 설명"
+
+concepts:
+  - agent
+  - llm-vs-agent
+  - agent-composition
+  - claude-md-vs-agent-md
+
+verdict: "에이전트가 뭔지, LLM과 뭐가 다른지 한 문장으로 설명 가능"

@@ -12,6 +12,7 @@ key_concepts:
   - 작업 큐 (Task Queue)
   - 동시성 제어 (Concurrency Control)
   - 인간 승인 포인트 (Human Approval Point)
+  - OAuth — 외부 서비스 로그인/권한 부여 표준 (구글 로그인 등)
 
 problem_scenario:
   question: "에이전트가 무한루프 돌면서 비용 폭탄 나면?"
@@ -34,5 +35,6 @@ concepts:
   - circuit-breaker
   - concurrency-control
   - human-approval
+  - oauth
 
 verdict: "서킷브레이커와 재시도의 차이를 사례로 설명 가능"

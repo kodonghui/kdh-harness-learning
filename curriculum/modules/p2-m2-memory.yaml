@@ -1,0 +1,45 @@
+title: "메모리 시스템 — 기억의 종류"
+phase: 2
+module: 2
+track: basic
+duration: 25min
+objective: "에이전트의 메모리 종류와 CLAUDE.md 계층 구조를 이해한다"
+
+key_concepts:
+  - 단기 메모리 (Short-term) — 현재 대화 안에서의 기억 = 컨텍스트
+  - 장기 메모리 (Long-term) — 세션 넘어서 유지되는 기억 = memory/ 폴더
+  - CLAUDE.md — 프로젝트 규칙 파일 (매 세션 자동 로드)
+  - CLAUDE.md 계층 — 조직 → 사용자 → 프로젝트 → 디렉토리 (위에서 아래로 합쳐짐)
+  - 메모리 vs 규칙 — memory/는 "기억", CLAUDE.md는 "지시"
+  - RAG (Retrieval-Augmented Generation) — 외부 문서에서 찾아서 답하기
+
+concept_pairs:
+  - ["단기 메모리 (대화)", "장기 메모리 (파일)"]
+  - ["CLAUDE.md (규칙/지시)", "memory/ (기억/정보)"]
+  - ["컨텍스트 (돋보기 안)", "RAG (돋보기 밖에서 가져오기)"]
+
+diagram_type: structure
+diagram_title: "CLAUDE.md 계층"
+diagram_description: |
+  ~/.claude/rules/ (조직/글로벌)
+    ↓ 합침
+  프로젝트/CLAUDE.md (프로젝트)
+    ↓ 합침
+  프로젝트/src/CLAUDE.md (디렉토리)
+  = 최종 규칙 세트
+
+exercise:
+  type: 구분
+  description: |
+    "동희님은 비개발자" = 어디에 저장? (memory/)
+    "한국어로 대화" = 어디에 저장? (CLAUDE.md)
+    왜 나누는지 설명
+
+concepts:
+  - short-term-memory
+  - long-term-memory
+  - claude-md-hierarchy
+  - memory-vs-rules
+  - rag
+
+verdict: "메모리와 CLAUDE.md의 차이, 계층 구조를 설명 가능"

@@ -1,0 +1,31 @@
+title: "보안 — 에이전트를 안전하게"
+phase: 4
+module: 3
+track: basic
+duration: 25min
+objective: "프롬프트 인젝션, 샌드박스, 시크릿 관리 등 에이전트 보안 핵심을 이해한다"
+
+key_concepts:
+  - 프롬프트 인젝션 (Prompt Injection) — 악의적 입력으로 에이전트를 속이는 공격
+  - 샌드박스 (Sandbox) — 에이전트가 안전한 울타리 안에서만 실행되도록 격리
+  - 시크릿 관리 (Secret Management) — API 키, 비밀번호를 안전하게 보관
+  - 에이전트는 raw 자격증명에 접근 못하게 — 구조적으로 차단
+  - 최소 권한 원칙 — 필요한 것만, 최소한만 허용
+
+concept_pairs:
+  - ["프롬프트 인젝션 (속이기)", "샌드박스 (가두기)"]
+  - ["시크릿 관리 (열쇠 보관)", "최소 권한 (필요한 것만)"]
+
+problem_scenario:
+  question: "MCP 서버가 악성 데이터를 보내면?"
+  case: "외부 MCP 서버가 프롬프트 인젝션 시도 — Claude Code는 도구 결과를 의심하도록 설계"
+  insight: "에이전트가 외부 데이터를 100% 믿으면 안 됨"
+
+concepts:
+  - prompt-injection
+  - sandbox
+  - secret-management
+  - least-privilege
+  - trust-boundary
+
+verdict: "프롬프트 인젝션이 뭔지, 왜 위험한지 설명 가능"

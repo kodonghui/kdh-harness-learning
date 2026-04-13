@@ -1,0 +1,40 @@
+title: "컨텍스트 윈도우 심화"
+phase: 2
+module: 1
+track: basic
+duration: 25min
+objective: "토큰이 뭔지, 컨텍스트 윈도우 한계와 4단계 압축 전략을 이해한다"
+
+key_concepts:
+  - 토큰 (Token) — AI가 읽는 단위. 한글 1글자 ≈ 2~3토큰
+  - 컨텍스트 윈도우 크기 — Claude 1M토큰, GPT 128K토큰 등
+  - 비용 = 토큰 수 — 많이 쓸수록 비쌈
+  - 4단계 압축 (Compaction) — HISTORY_SNIP → MicroCompact → CONTEXT_COLLAPSE → AutoCompact
+  - "Lost in the Middle" — 중간에 있는 정보를 놓치는 현상
+
+concept_pairs:
+  - ["토큰 (단위)", "비용 (돈)"]
+  - ["컨텍스트 윈도우 (돋보기)", "압축 (요약해서 줄이기)"]
+
+diagram_type: visualization
+diagram_title: "4단계 압축"
+diagram_description: |
+  최근 대화: 원본 유지
+  좀 된 대화: 가볍게 요약 (MicroCompact)
+  오래된 대화: 강하게 압축 (AutoCompact)
+  아주 오래된 대화: 핵심만 남김 (CONTEXT_COLLAPSE)
+
+exercise:
+  type: 계산
+  description: |
+    "이 대화가 100K 토큰이면, 1M 윈도우의 몇 %?
+     Claude 비용이 토큰당 X원이면 이 대화 비용은?"
+
+concepts:
+  - token
+  - context-window-size
+  - token-cost
+  - compaction
+  - lost-in-the-middle
+
+verdict: "토큰이 뭔지, 압축이 왜 필요한지 설명 가능"

@@ -1,0 +1,38 @@
+title: "실행 패턴 — 어떻게 일하나"
+phase: 3
+module: 1
+track: basic
+duration: 25min
+objective: "ReAct, Plan-and-Execute 등 에이전트의 주요 실행 패턴을 이해한다"
+
+key_concepts:
+  - ReAct (Reasoning + Acting) — 생각하고 행동하고 관찰하는 패턴 반복
+  - Plan-and-Execute — 먼저 전체 계획 세우고 하나씩 실행
+  - Explore-Plan-Act — 탐색(읽기만)→계획(토론)→실행(수정) 3단계 권한 분리
+  - Reflection — 자기가 한 걸 되돌아보고 수정하는 패턴
+  - 12가지 하네스 패턴 — Claude Code에서 발견된 실전 패턴들
+
+concept_pairs:
+  - ["ReAct (한 발씩)", "Plan-and-Execute (계획 먼저)"]
+  - ["Explore (읽기만)", "Act (수정 가능)"]
+
+diagram_type: flowchart
+diagram_title: "ReAct vs Plan-and-Execute"
+diagram_description: |
+  ReAct: 생각→행동→관찰→생각→행동→관찰... (매번 판단)
+  Plan-and-Execute: 계획(1→2→3→4)→실행1→실행2→실행3→실행4 (한번에 계획)
+
+exercise:
+  type: 구분
+  description: |
+    동희님이 "버그 찾아줘" → Claude가 파일 읽고→생각→수정→테스트 = ReAct
+    동희님이 "/kdh-dev-pipeline" → 전체 스프린트 계획→하나씩 실행 = Plan-and-Execute
+
+concepts:
+  - react-pattern
+  - plan-and-execute
+  - explore-plan-act
+  - reflection
+  - harness-patterns
+
+verdict: "ReAct와 Plan-and-Execute의 차이를 예시로 설명 가능"

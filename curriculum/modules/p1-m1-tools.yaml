@@ -9,6 +9,9 @@ key_concepts:
   - 도구 레지스트리 (Tool Registry)
   - 권한 게이트 (Permission Gate)
   - 도구 수와 성능의 관계
+  - SDK (Software Development Kit) — 도구를 만들 때 쓰는 부품 상자
+  - MCP (Model Context Protocol) — 도구를 연결하는 표준 규격
+  - CLI (Command Line Interface) — 텍스트로 명령하는 방식 (Claude Code가 CLI)
 
 problem_scenario:
   question: "도구가 너무 많으면 어떻게 되나?"
@@ -30,5 +33,8 @@ concepts:
   - tool-registry
   - permission-gate
   - tool-schema
+  - sdk
+  - mcp
+  - cli
 
 verdict: "도구 레지스트리가 왜 필요한지 설명 가능"

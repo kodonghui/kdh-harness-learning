@@ -1,0 +1,39 @@
+title: "에이전트 루프"
+phase: 0
+module: 2
+track: basic
+duration: 20min
+objective: "에이전트가 일하는 기본 사이클(인식→추론→실행→관찰)을 이해한다"
+
+key_concepts:
+  - 에이전트 루프 — 인식→추론→실행→관찰 반복
+  - 인식 (Perception) — 사용자 입력, 도구 결과를 받아들이는 단계
+  - 추론 (Reasoning) — "뭘 해야 하지?" 생각하는 단계
+  - 실행 (Action) — 도구를 써서 실제로 하는 단계
+  - 관찰 (Observation) — 결과를 보고 다음 판단하는 단계
+
+concept_pairs:
+  - ["인식 (입력 받기)", "관찰 (결과 보기)"]
+  - ["추론 (생각)", "실행 (행동)"]
+  - ["1회 루프", "멀티턴 대화"]
+
+diagram_type: flowchart
+diagram_title: "에이전트 루프 사이클"
+diagram_description: |
+  사용자 입력 → 인식 → 추론 → 도구 선택 → 실행 → 관찰 → 다시 추론
+  이 사이클이 계속 반복됨. 답이 나올 때까지.
+
+exercise:
+  type: 구분
+  description: |
+    Claude Code에게 "이 파일 읽어서 버그 찾아줘" 했을 때,
+    각 단계가 뭔지 대입해보기
+
+concepts:
+  - agent-loop
+  - perception
+  - reasoning
+  - action
+  - observation
+
+verdict: "에이전트 루프 4단계를 실제 예시에 대입해서 설명 가능"

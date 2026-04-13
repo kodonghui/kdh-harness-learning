@@ -1,0 +1,40 @@
+title: "인증과 연결 — 로그인과 열쇠"
+phase: 1
+module: 3
+track: basic
+duration: 25min
+objective: "OAuth, SDK, CLI가 뭔지, 에이전트가 외부 서비스에 어떻게 접근하는지 이해한다"
+
+key_concepts:
+  - OAuth — 비밀번호 없이 로그인 허락하는 표준 (구글 로그인 등)
+  - API Key — 서비스에 접근하는 열쇠 (비밀번호 같은 것)
+  - SDK (Software Development Kit) — 도구/에이전트 만드는 부품 상자
+  - CLI (Command Line Interface) — 텍스트로 명령하는 방식 (Claude Code가 CLI)
+  - 토큰 (인증 토큰) — 로그인 후 받는 임시 출입증
+
+concept_pairs:
+  - ["OAuth (로그인 허락)", "API Key (열쇠)"]
+  - ["SDK (부품 상자)", "CLI (명령 방식)"]
+  - ["인증 토큰 (출입증)", "API Key (열쇠)"]
+
+diagram_type: flowchart
+diagram_title: "OAuth 로그인 흐름"
+diagram_description: |
+  에이전트 → "구글에 로그인해도 될까요?" → 사용자 승인 → 토큰 발급 → 에이전트가 토큰으로 접근
+  아까 codex auth login 한 게 이 과정!
+
+exercise:
+  type: 구분
+  description: |
+    아까 codex 설치할 때 브라우저에서 로그인한 것 = OAuth
+    OPENAI_API_KEY 같은 것 = API Key
+    둘의 차이를 설명해보기
+
+concepts:
+  - oauth
+  - api-key
+  - sdk
+  - cli
+  - auth-token
+
+verdict: "OAuth와 API Key의 차이를 설명 가능"

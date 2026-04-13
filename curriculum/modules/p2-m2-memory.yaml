@@ -12,6 +12,9 @@ key_concepts:
   - CLAUDE.md 계층 — 조직 → 사용자 → 프로젝트 → 디렉토리 (위에서 아래로 합쳐짐)
   - 메모리 vs 규칙 — memory/는 "기억", CLAUDE.md는 "지시"
   - RAG (Retrieval-Augmented Generation) — 외부 문서에서 찾아서 답하기
+  - 임베딩 (Embedding) — 텍스트를 숫자 배열로 변환, 의미가 비슷하면 숫자도 비슷
+  - LLM Wiki — AI가 마크다운 위키를 자동 관리하는 패턴 (Karpathy 2026). RAG 없이 index.md로 탐색
+  - LLM Wiki vs RAG — 임베딩/벡터DB 필요 여부가 핵심 차이
 
 concept_pairs:
   - ["단기 메모리 (대화)", "장기 메모리 (파일)"]
@@ -41,5 +44,7 @@ concepts:
   - claude-md-hierarchy
   - memory-vs-rules
   - rag
+  - embedding
+  - llm-wiki
 
 verdict: "메모리와 CLAUDE.md의 차이, 계층 구조를 설명 가능"

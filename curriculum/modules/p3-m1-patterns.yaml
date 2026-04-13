@@ -11,6 +11,10 @@ key_concepts:
   - Explore-Plan-Act — 탐색(읽기만)→계획(토론)→실행(수정) 3단계 권한 분리
   - Reflection — 자기가 한 걸 되돌아보고 수정하는 패턴
   - 12가지 하네스 패턴 — Claude Code에서 발견된 실전 패턴들
+  - Superpowers 워크플로우 — Socratic→Plan→TDD→서브에이전트 (obra/superpowers, 149K⭐)
+
+reference_repos:
+  - obra/superpowers — 실행 패턴의 실제 구현체 (Socratic + Micro-Task + TDD)
 
 concept_pairs:
   - ["ReAct (한 발씩)", "Plan-and-Execute (계획 먼저)"]

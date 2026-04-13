@@ -14,13 +14,15 @@
   - Phase 3: 실행과 워크플로우 (실행 패턴, 멀티에이전트, 훅)
   - Phase 4: 안전과 검증 (상태/안전, 실패/복구, 보안)
   - Phase 5: 관측과 운영 (관측성, 비용/성능, 평가)
-  - Advanced: 비교 + 설계 실습
-  - Practical: 미니 하네스 설계 → 구현 → 운영
+  - Advanced: 하네스 비교 (바닐라 vs ECC vs Superpowers vs best-practice)
+  - Practical: kdh-pipelines v2 리빌딩 (설계 → 구현 → 운영)
 
 ## 학습 현황
 - Phase 0 판정 통과 (2026-04-13)
-- 학습 개념 5개: agent-harness(0.3), tool(0.2), context-window(0.2), failure-detection(0.05), agent-vs-harness-responsibility(0.2)
-- 다음 단계: Phase 1 M1 진입
+- Phase 1 판정 통과 (2026-04-13): M1 도구 계층, M2 프로토콜, M3 인증
+- Phase 2 진행 중: M1 컨텍스트 심화 통과, M2 메모리 진행 중
+- 학습 개념 20개+
+- 참조 레포: best-practice(39.9K⭐), ECC(153K⭐), superpowers(149K⭐)
 
 ## 폴더 구조
 

@@ -11,6 +11,12 @@ key_concepts:
   - 스킬 vs 훅 — 스킬=프롬프트(안 지킬 수 있음), 훅=코드(100% 실행)
   - 플러그인 (Plugin) — 스킬+훅을 묶어서 배포하는 패키지
   - 결정론적 실행 — 프롬프트에 의존하지 않고 인프라가 보장하는 실행
+  - 스킬 frontmatter — 스킬 정의 필드 13개 (shanraisshan/claude-code-best-practice)
+  - 사운드 훅 — 이벤트별 사운드 알림 (best-practice 레포 실습 예제)
+
+reference_repos:
+  - shanraisshan/claude-code-best-practice — 스킬 13필드 + 명령어 68개 + 훅 이벤트 카탈로그 (39.9K⭐)
+  - affaan-m/everything-claude-code — 181 스킬 + 79 명령어 실전 예제 (153K⭐)
 
 concept_pairs:
   - ["스킬 (프롬프트, 안 지킬 수 있음)", "훅 (코드, 100% 실행)"]

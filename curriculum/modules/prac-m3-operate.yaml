@@ -1,23 +1,32 @@
-title: "운영 + 개선"
+title: "kdh-pipelines v2 운영 + 비교"
 phase: practical
 module: 3
 track: practical
-duration: 30min
-objective: "미니 하네스를 실제로 운영하고, 문제를 발견하고, 개선을 지시한다"
+duration: 45min
+objective: "v2를 실전 프로젝트(corthex-v3 등)에 적용하고, v1과 비교 평가한다"
 
 process:
-  1: "미니 하네스에 실제 요청을 보내고 결과 관찰"
-  2: "문제 발견 (예: 타임아웃, 도구 에러, 컨텍스트 초과)"
-  3: "Phase 2에서 배운 경계 진단으로 원인 판별"
-  4: "개선 지시문 작성 → Claude Code에게 전달"
-  5: "수정 후 재검증"
+  1: "v2를 corthex-v3 또는 LeetMaster-v2에 실제 적용"
+  2: "v1 → v2 변화 측정 (줄 수, 구조, 규칙 분포)"
+  3: "문제 발견 → 원인 진단 → 개선 지시"
+  4: "v1 vs v2 비교 보고서 작성"
+  5: "Phase 0~5 개념이 실전에서 어떻게 작동했는지 회고"
+
+comparison_axes:
+  - "CLAUDE.md 줄 수 (v1 vs v2)"
+  - "규칙 분포 (CLAUDE.md vs rules vs hooks vs skills)"
+  - "핵심 규칙 누락 수"
+  - "중복/충돌 수"
+  - "건강 점수 (/kdh-claude-md check)"
 
 deliverable:
-  - 동작하는 미니 하네스 1개
-  - 개선 이력 (문제 → 원인 → 지시 → 결과)
+  - kdh-pipelines v2 운영 중인 프로젝트 1개 이상
+  - v1 vs v2 비교 보고서
+  - 학습 회고 (어떤 개념이 가장 유용했는지)
 
 concepts:
-  - harness-operation
-  - iterative-improvement
+  - pipeline-operation
+  - version-comparison
+  - retrospective
 
-verdict: "운영 중 발견한 문제를 명확한 지시로 전환 가능"
+verdict: "v1과 v2의 차이를 구체적 수치로 설명하고, 어떤 하네스 개념이 개선에 기여했는지 설명 가능"

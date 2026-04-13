@@ -1,29 +1,40 @@
-title: "미니 하네스 설계"
+title: "kdh-pipelines v2 설계"
 phase: practical
 module: 1
 track: practical
-duration: 30min
-objective: "Claude Agent SDK 기반 미니 하네스의 요구사항을 정의한다"
-note: "CORTHEX와 별개 프로젝트"
+duration: 45min
+objective: "Phase 0~5 + Advanced에서 배운 하네스 개념을 총동원하여 kdh-pipelines v2의 아키텍처를 설계한다"
+note: "미니 하네스가 아닌 실전 리빌딩. 배운 걸 전부 써먹는 졸업 프로젝트."
 
 scope:
-  - 도구 3~5개 (Read, Write, Bash, WebSearch 등)
-  - 서킷브레이커 (3회 실패 → 중단)
-  - 기본 컨텍스트 관리 (토큰 추적 + 요약 압축)
-  - 세션 관리 (resume 가능)
+  - kdh-pipelines v1 → v2 전면 리빌딩
+  - 3개 레포(best-practice, ECC, superpowers) 패턴 참조
+  - Phase 1~5 개념 전부 적용
+
+design_checklist:
+  - "도구 레지스트리 설계 (P1 M1) — 스킬/명령어 정리, frontmatter 표준화"
+  - "프로토콜 스택 설계 (P1 M2) — MCP 서버 구성, A2A 에이전트 통신"
+  - "인증 설계 (P1 M3) — API Key/OAuth 관리"
+  - "컨텍스트 관리 (P2) — 압축 전략, 메모리 계층, 프롬프트 최적화"
+  - "실행 패턴 선택 (P3 M1) — Superpowers식 Socratic→Plan→TDD 적용"
+  - "멀티에이전트 구조 (P3 M2) — ECC 참조, 에이전트 역할 분담"
+  - "훅/스킬 재설계 (P3 M3) — advisory vs deterministic 분류"
+  - "안전 장치 (P4) — 서킷브레이커, 가드 훅, 보안"
+  - "관측성 (P5) — 비용 추적, 성능 모니터링, 평가 기준"
 
 deliverable:
-  - 요구사항 정의서
-  - Claude Code에게 줄 설계 지시문
+  - kdh-pipelines v2 아키텍처 설계서
+  - 스킬/에이전트/훅 목록 + 역할 배치표
+  - CLAUDE.md 초안 (/kdh-claude-md init 활용)
 
-exercise:
-  type: 설계
-  description: |
-    "내가 원하는 미니 하네스"의 요구사항을 5개 항목으로 작성한다.
-    그 요구사항을 Claude Code에게 전달할 지시문으로 변환한다.
+reference_repos:
+  - shanraisshan/claude-code-best-practice — frontmatter 표준, settings 레퍼런스
+  - affaan-m/everything-claude-code — 에이전트/스킬 구조 참조
+  - obra/superpowers — 워크플로우 방법론 참조
 
 concepts:
-  - agent-sdk
-  - harness-requirements
+  - pipeline-architecture
+  - harness-design
+  - concept-integration
 
-verdict: "미니 하네스 요구사항 정의서를 작성 가능"
+verdict: "Phase 0~5 개념을 v2 설계에 어떻게 적용했는지 설명 가능"

@@ -6,10 +6,11 @@ duration: 30min
 objective: "같은 문제를 다른 하네스가 어떻게 풀었는지 구조로 비교한다"
 
 comparison_targets:
-  - Claude Code (Anthropic 공식)
-  - claw-code (Rust 클린룸 재구현, 179K stars)
-  - Managed Agents (Anthropic 클라우드)
-  - OpenDev (학술 논문 기반)
+  - Claude Code 바닐라 (Anthropic 공식)
+  - Everything Claude Code (affaan-m, 153K⭐ — 하네스 최적화 시스템)
+  - Superpowers (obra, 149K⭐ — 개발 방법론)
+  - claude-code-best-practice (shanraisshan, 39.9K⭐ — 레퍼런스/카탈로그)
+  - claw-code (Rust 클린룸 재구현)
 
 comparison_axes:
   - 컨텍스트 관리 방식

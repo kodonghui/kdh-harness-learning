@@ -1,24 +1,30 @@
-title: "미니 하네스 구현"
+title: "kdh-pipelines v2 구현"
 phase: practical
 module: 2
 track: practical
-duration: 30-45min
-objective: "Claude Code가 코드를 작성하고, 동희님이 결과를 판정한다"
-note: "동희님은 코딩하지 않음. Claude Code가 구현."
+duration: 60min+
+objective: "M1 설계를 바탕으로 Claude Code에게 구현을 시키고, 결과를 판정한다"
+note: "동희님은 코딩하지 않음. Claude Code가 구현. 동희님은 설계자+판정자."
 
 process:
-  1: "M1의 설계 지시문을 Claude Code에게 전달"
-  2: "Claude Code가 Agent SDK 기반 코드 작성"
-  3: "동희님이 실행해서 동작 확인"
-  4: "요구사항 대비 결과 판정"
+  1: "M1 설계서를 Claude Code에게 전달"
+  2: "스킬 파일 생성 (SKILL.md frontmatter 표준 적용)"
+  3: "에이전트 정의 생성 (frontmatter 16필드 표준 적용)"
+  4: "훅 스크립트 생성 (가드/포맷/관측)"
+  5: "CLAUDE.md 최적화 (/kdh-claude-md audit + optimize)"
+  6: "동작 확인 + 요구사항 대비 판정"
 
-downgrade_path:
-  level_1: "Claude Agent SDK로 실제 구현 (기본)"
-  level_2: "설정 파일 기반 조립 (코드가 아닌 설정만 변경)"
-  level_3: "로그 기반 가상 운영 (기존 하네스 로그를 읽고 판단 연습)"
+quality_gates:
+  - "CLAUDE.md 200줄 이내"
+  - "스킬 frontmatter 표준 준수"
+  - "Hook으로 강제 가능한 규칙은 Hook으로 구현"
+  - "advisory 규칙은 CLAUDE.md에 유지"
+  - "테스트 가능한 검증 수단 포함"
 
 concepts:
-  - agent-sdk-implementation
-  - result-verification
+  - pipeline-implementation
+  - skill-authoring
+  - agent-definition
+  - hook-scripting
 
-verdict: "Claude Code에게 구현을 시키고, 결과가 요구사항을 충족하는지 판정 가능"
+verdict: "v2 스킬/에이전트/훅이 설계서대로 동작하는지 판정 가능"

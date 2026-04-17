@@ -21,9 +21,7 @@ diagram_description: |
 
 exercise:
   type: 감별
-  description: "동희님의 에이전트 33개 중 5개 골라서 역할 설명"
-
-corthex_connection: "agent-engine.ts가 이 여정을 담당"
+  description: "Claude Code의 서브에이전트 중 아무거나 5개 골라서 역할 설명 / Pick any 5 sub-agents from your Claude Code setup and describe their roles"
 
 concepts:
   - agent-harness

@@ -21,7 +21,7 @@ exercise:
   type: 구분
   description: |
     CLAUDE.md 안의 내용 = 시스템 프롬프트의 일부
-    동희님이 채팅에 치는 말 = 사용자 프롬프트
+    학습자가 채팅에 치는 말 = 사용자 프롬프트
     /kdh-study 스킬 내용 = 시스템 프롬프트에 주입되는 지시
 
 concepts:

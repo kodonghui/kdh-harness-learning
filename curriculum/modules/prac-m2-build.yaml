@@ -1,17 +1,17 @@
-title: "kdh-pipelines v2 구현"
+title: "Your Pipeline — Build / 내 파이프라인 구현"
 phase: practical
 module: 2
 track: practical
 duration: 60min+
-objective: "M1 설계를 바탕으로 Claude Code에게 구현을 시키고, 결과를 판정한다"
-note: "동희님은 코딩하지 않음. Claude Code가 구현. 동희님은 설계자+판정자."
+objective: "M1 설계를 바탕으로 Claude Code에게 구현을 시키고, 결과를 판정한다 / Have Claude Code implement the M1 design, then verify the result."
+note: "학습자는 코딩하지 않음. Claude Code가 구현. 학습자는 설계자+판정자. / The learner does not code — Claude Code does. The learner is designer + judge."
 
 process:
   1: "M1 설계서를 Claude Code에게 전달"
   2: "스킬 파일 생성 (SKILL.md frontmatter 표준 적용)"
-  3: "에이전트 정의 생성 (frontmatter 16필드 표준 적용)"
+  3: "에이전트 정의 생성 (frontmatter 표준 필드 적용)"
   4: "훅 스크립트 생성 (가드/포맷/관측)"
-  5: "CLAUDE.md 최적화 (/kdh-claude-md audit + optimize)"
+  5: "CLAUDE.md 최적화 (audit + optimize)"
   6: "동작 확인 + 요구사항 대비 판정"
 
 quality_gates:
@@ -27,4 +27,4 @@ concepts:
   - agent-definition
   - hook-scripting
 
-verdict: "v2 스킬/에이전트/훅이 설계서대로 동작하는지 판정 가능"
+verdict: "v2 스킬/에이전트/훅이 설계서대로 동작하는지 판정 가능 / Can judge whether the built skills/agents/hooks match the design doc"

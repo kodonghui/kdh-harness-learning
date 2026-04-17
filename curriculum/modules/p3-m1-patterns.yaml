@@ -29,8 +29,8 @@ diagram_description: |
 exercise:
   type: 구분
   description: |
-    동희님이 "버그 찾아줘" → Claude가 파일 읽고→생각→수정→테스트 = ReAct
-    동희님이 "/kdh-dev-pipeline" → 전체 스프린트 계획→하나씩 실행 = Plan-and-Execute
+    사용자가 "버그 찾아줘" → Claude가 파일 읽고→생각→수정→테스트 = ReAct
+    사용자가 "이번 스프린트 전체 끝내줘" → 전체 계획 수립→하나씩 실행 = Plan-and-Execute
 
 concepts:
   - react-pattern

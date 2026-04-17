@@ -33,10 +33,11 @@ diagram_description: |
 exercise:
   type: 구분
   description: |
-    동희님의 hooks/pipeline-guard.sh = PreToolUse 훅
-    동희님의 hooks/loop-detector.js = 안전 훅 (무한루프 방지)
-    동희님의 hooks/statusline.sh = 관측 훅 (상태 표시)
-    각각 어떤 라이프사이클 이벤트에 걸리는지 추측
+    예시 훅 3종의 역할 추측:
+      hooks/pre-tool-guard.sh  → PreToolUse 훅 (도구 실행 전 검증)
+      hooks/loop-detector.js   → 안전 훅 (무한루프 방지)
+      hooks/statusline.sh      → 관측 훅 (상태 표시)
+    각각 어떤 라이프사이클 이벤트에 걸리는지 판별
 
 concepts:
   - hook

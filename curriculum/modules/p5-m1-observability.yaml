@@ -26,9 +26,9 @@ diagram_description: |
 exercise:
   type: 구분
   description: |
-    동희님의 hooks/statusline.sh = 모니터링
-    session-data/*.tmp = 로그
-    "봐도 모르겠다" = 뭘 봐야 하는지 모르는 문제
+    hooks/statusline.sh (상태 표시 훅) = 모니터링
+    session-data/*.tmp              = 로그
+    "봐도 모르겠다"                    = 뭘 봐야 하는지 모르는 문제
 
 concepts:
   - observability

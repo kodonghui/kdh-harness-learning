@@ -27,8 +27,6 @@ reading_allowed:
   - 설정 파일 (tools 정의)
   - 의사코드
 
-corthex_connection: "tools/index.ts — 현재 Phase 2 기초 수준"
-
 concepts:
   - tool-registry
   - permission-gate

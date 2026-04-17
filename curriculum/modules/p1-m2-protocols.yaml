@@ -28,8 +28,6 @@ exercise:
     Claude Code가 GitHub에 코드 올릴 때 → 어느 프로토콜?
     두 에이전트가 협업할 때 → 어느 프로토콜?
 
-corthex_connection: "동희님의 kdh-pipelines에서 MCP 서버 연결이 이것"
-
 concepts:
   - api
   - mcp

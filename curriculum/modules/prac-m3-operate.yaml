@@ -1,12 +1,12 @@
-title: "kdh-pipelines v2 운영 + 비교"
+title: "Your Pipeline — Operate & Compare / 내 파이프라인 운영 + 비교"
 phase: practical
 module: 3
 track: practical
 duration: 45min
-objective: "v2를 실전 프로젝트(corthex-v3 등)에 적용하고, v1과 비교 평가한다"
+objective: "v2를 실전 프로젝트에 적용하고, v1과 비교 평가한다 / Apply v2 to a real project and compare against v1."
 
 process:
-  1: "v2를 corthex-v3 또는 LeetMaster-v2에 실제 적용"
+  1: "v2를 본인의 실전 프로젝트에 적용 / Apply v2 to one of your real projects"
   2: "v1 → v2 변화 측정 (줄 수, 구조, 규칙 분포)"
   3: "문제 발견 → 원인 진단 → 개선 지시"
   4: "v1 vs v2 비교 보고서 작성"
@@ -17,16 +17,16 @@ comparison_axes:
   - "규칙 분포 (CLAUDE.md vs rules vs hooks vs skills)"
   - "핵심 규칙 누락 수"
   - "중복/충돌 수"
-  - "건강 점수 (/kdh-claude-md check)"
+  - "건강 점수 (audit 도구 활용)"
 
 deliverable:
-  - kdh-pipelines v2 운영 중인 프로젝트 1개 이상
-  - v1 vs v2 비교 보고서
-  - 학습 회고 (어떤 개념이 가장 유용했는지)
+  - v2를 운영 중인 프로젝트 1개 이상 / At least one project running v2
+  - v1 vs v2 비교 보고서 / v1 vs v2 comparison report
+  - 학습 회고 (어떤 개념이 가장 유용했는지) / Retrospective on most useful concepts
 
 concepts:
   - pipeline-operation
   - version-comparison
   - retrospective
 
-verdict: "v1과 v2의 차이를 구체적 수치로 설명하고, 어떤 하네스 개념이 개선에 기여했는지 설명 가능"
+verdict: "v1과 v2의 차이를 구체적 수치로 설명하고, 어떤 하네스 개념이 개선에 기여했는지 설명 가능 / Can quantify v1 vs v2 differences and identify which harness concepts drove improvements"

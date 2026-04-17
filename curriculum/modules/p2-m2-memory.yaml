@@ -34,7 +34,7 @@ diagram_description: |
 exercise:
   type: 구분
   description: |
-    "동희님은 비개발자" = 어디에 저장? (memory/)
+    "학습자는 비개발자다" = 어디에 저장? (memory/)
     "한국어로 대화" = 어디에 저장? (CLAUDE.md)
     왜 나누는지 설명
 

@@ -27,7 +27,7 @@ concept_pairs:
 diagram_type: structure
 diagram_title: "서브에이전트 구조"
 diagram_description: |
-  메인 에이전트 (동희님과 대화)
+  메인 에이전트 (사용자와 대화)
   ├── code-reviewer (코드 검사 전문)
   ├── security-reviewer (보안 전문)
   └── e2e-runner (테스트 전문)
@@ -36,8 +36,8 @@ diagram_description: |
 exercise:
   type: 구분
   description: |
-    동희님이 만든 agents/ 폴더의 34개 에이전트 중
-    5개를 골라 "이건 언제 소환되는 건지" 설명
+    ~/.claude/agents/ 안의 에이전트 파일들 중 5개를 골라
+    "이건 언제 소환되는 건지" 설명
 
 concepts:
   - subagent

@@ -1,3 +1,55 @@
-.claude/
-.codex
+# ============================================================
+# Personal study data — stays local, never committed.
+# 개인 학습 데이터 — 로컬에만 보관, 커밋 금지.
+# ============================================================
+
+# FSRS concept cards (personal progress/mastery/review_log)
+# 개념 카드 (개인 진도/숙련도/복습 기록)
+concepts/*.yaml
+!concepts/_template.yaml
+
+# Personal planning, research, analysis docs
+# 개인 플랜/리서치/분석 문서
+plans/*.md
+plans/_index.yaml
+
+# Personal session logs, notes, exports
+# 개인 세션 로그, 노트, 내보내기
+notes/*.md
+sessions/
+exports/*.md
+
+# Personal profile (learner-specific state)
+# 개인 프로필 (학습자별 상태) — 템플릿은 추적, 실제 사용분은 로컬만
+profile.local.yaml
+
+# Personal convenience scripts (WSL/tmux bootstrap, etc.)
+# 개인 편의 스크립트
+scripts/start-*.sh
+
+# Observation/telemetry output
+# 관측/텔레메트리 출력
+_bmad-output/
+
+# Reference repos (local only)
+# 참조 레포 (로컬 전용)
 pipelines-ref/
+
+# ============================================================
+# Tooling / runtime
+# ============================================================
+.claude/*
+!.claude/skills/
+.claude/skills/*
+!.claude/skills/kdh-study/
+.codex
+
+# Node / Bun
+node_modules/
+bun.lockb
+*.log
+
+# Editor / OS
+.DS_Store
+.vscode/
+.idea/

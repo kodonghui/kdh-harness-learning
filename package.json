@@ -1,0 +1,26 @@
+{
+  "name": "kdh-harness-study",
+  "version": "1.0.0",
+  "description": "A non-developer-friendly curriculum for learning Agent Harnesses, powered by FSRS spaced repetition.",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "author": "kodonghui",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kodonghui/kdh-harness-learning.git"
+  },
+  "scripts": {
+    "fsrs": "bun run scripts/fsrs-calc.ts"
+  },
+  "dependencies": {
+    "ts-fsrs": "^4.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.4.0"
+  },
+  "engines": {
+    "bun": ">=1.0.0"
+  }
+}

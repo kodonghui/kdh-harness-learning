@@ -1,0 +1,39 @@
+# Concept card template (schema v2).
+# 개념 카드 템플릿 (스키마 v2).
+#
+# /kdh-study auto-generates real cards from this shape when you learn a new topic.
+# Filename convention: concepts/{slug}.yaml where slug is kebab-case English.
+#
+# 새 개념을 학습하면 /kdh-study가 이 형태대로 카드를 자동 생성합니다.
+# 파일명 규칙: concepts/{slug}.yaml — slug는 kebab-case 영문.
+
+schema_version: 2
+topic_key: example-concept           # kebab-case, matches filename
+display_name: "Example Concept"      # Human-readable (any language)
+aliases:                             # Alternate names for topic matching
+  - "예시 개념"
+  - "sample"
+category: general                    # Freeform category tag
+
+fsrs_card:                           # Computed by ./scripts/fsrs-calc.ts — do not edit manually
+  due: "2026-04-17T09:00:00+09:00"
+  stability: 0
+  difficulty: 0
+  elapsed_days: 0
+  scheduled_days: 0
+  reps: 0
+  lapses: 0
+  state: 0                           # 0=New, 1=Learning, 2=Review, 3=Relearning
+  last_review: null
+
+review_log:                          # Append-only, trimmed to last 20 entries
+  - date: "2026-04-17T09:00:00+09:00"
+    rating: good                     # again | hard | good | easy
+    quiz_type: new_learn             # new_learn | ox | mc | fill | short
+    elapsed_days: 0
+    scheduled_days: 1
+
+mastery: 0.1                         # 0.0 – 1.0 (affects quiz type selection)
+review_count: 1
+weak_points: []                      # Free-text list of concepts the learner keeps missing
+last_studied: "2026-04-17"           # YYYY-MM-DD

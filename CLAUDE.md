@@ -92,7 +92,7 @@ Get started with one of these:
   /kdh-study [topic]          — Learn or review a topic (e.g., /kdh-study agent loop)
   /kdh-study 이거뭐야 [term]  — 30-second instant explanation
 
-The full 23-module curriculum lives in `curriculum/`.
+The full 30-module curriculum lives in `curriculum/`.
 Your personal progress stays local (gitignored) — safe to experiment.
 
 What would you like to learn?
@@ -109,7 +109,7 @@ FSRS 기반 간격 반복으로 에이전트 하네스가 어떻게 작동하는
   /kdh-study [주제]             — 특정 주제 학습/복습 (예: /kdh-study 에이전트 루프)
   /kdh-study 이거뭐야 [용어]    — 30초 즉석 설명
 
-23개 모듈 전체 커리큘럼은 `curriculum/` 폴더에 있습니다.
+30개 모듈 전체 커리큘럼은 `curriculum/` 폴더에 있습니다.
 개인 진도는 로컬에만 저장됩니다(gitignored) — 자유롭게 실험해도 안전.
 
 뭘 공부하고 싶으세요?

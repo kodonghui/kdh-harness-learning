@@ -1,0 +1,113 @@
+title: "스트리밍 vs 배치 응답 / Streaming vs Batch Responses"
+phase: 3
+module: 6
+track: basic
+duration: 20min
+objective: "LLM 응답을 실시간 스트리밍으로 받을지, 완료 후 한번에 받을지의 선택 기준을 이해한다 / Understand when to stream LLM output vs wait for the full batch response."
+
+key_concepts:
+  - "Streaming — 토큰이 생성되는 즉시 조금씩 보내기 (타자 치듯)"
+  - "Batch (Non-streaming) — 전체 답이 완성될 때까지 기다렸다가 한 번에 보내기"
+  - "SSE (Server-Sent Events) — 스트리밍을 구현하는 HTTP 표준 기술"
+  - "TTFT (Time To First Token) — 첫 글자가 나오기까지 걸린 시간 (체감 속도)"
+  - "Progressive Rendering — 답이 완성 안 됐어도 일단 화면에 보여주기"
+  - "Early Termination — 답 중간에 '그만' 하고 끊기"
+
+concept_pairs:
+  - ["Streaming (타자 치듯)", "Batch (우편으로 답지)"]
+  - ["TTFT 빠름", "총 시간은 같음"]
+  - ["UX 좋음 (진행 보임)", "후처리 쉬움 (완결된 답)"]
+  - ["에러 중간에 터지면 반 쓰다 맘", "에러면 아예 안 옴"]
+
+diagram_type: comparison
+diagram_title: "Streaming vs Batch 타임라인"
+diagram_description: |
+  ┌─ Batch 방식 ─────────────────────────────────────────┐
+  │ 사용자: "긴 글 써줘"                                  │
+  │   ↓                                                    │
+  │ [10초 대기 — 화면에 아무것도 안 나옴] 💀 체감 느림    │
+  │   ↓                                                    │
+  │ 짠! 완성된 전체 글이 한 번에 도착                     │
+  └────────────────────────────────────────────────────────┘
+          총 소요: 10초, 첫 글자 도착: 10초
+
+  ┌─ Streaming 방식 ─────────────────────────────────────┐
+  │ 사용자: "긴 글 써줘"                                  │
+  │   ↓                                                    │
+  │ [0.5초 후] "안" 도착                                  │
+  │ [0.6초 후] "안녕" 도착                                │
+  │ [0.7초 후] "안녕하세요" 도착                          │
+  │ ...                                                   │
+  │ [10초 후] 마지막 마침표 도착                          │
+  └────────────────────────────────────────────────────────┘
+          총 소요: 10초, 첫 글자 도착: 0.5초 ⚡
+
+  핵심: 전체 생성 시간은 같지만 사용자 체감은 완전 다름.
+        ChatGPT가 글자 하나씩 타이핑되는 듯한 그 효과.
+
+analogy: |
+  식당 주문 비유:
+  - Batch = 한 번에 다 나오는 코스 요리. 나올 때까지 기다리기.
+  - Streaming = 나오는 순서대로 바로바로 서빙. 애피타이저 먹는 동안 메인 준비.
+
+  총 식사 시간은 비슷하지만,
+  Streaming은 "기다림" 자체가 작업으로 바뀌어서 덜 지루함.
+
+when_streaming_wins:
+  - "대화형 UI (ChatGPT, Claude.ai 같은 채팅)"
+  - "긴 답 (2,000 토큰 이상) — 안 기다려도 되니까"
+  - "사용자가 중간에 '이거 방향 틀렸어, 멈춰' 하고 끊을 수 있음"
+  - "디버깅: 모델이 어디서 헛소리 시작하는지 실시간 관찰"
+  - "실시간 협업 (사용자가 답 읽으면서 다음 질문 준비)"
+
+when_batch_wins:
+  - "구조화된 출력 (JSON, YAML) — 중간 파싱 불가, 완성돼야 의미 있음"
+  - "도구 호출 (tool call) 결과 처리 — 반쪽짜리는 쓸모 없음"
+  - "짧은 응답 (< 100 토큰) — 어차피 금방 끝나는데 스트리밍 오버헤드만 생김"
+  - "서버 간 API 호출 — 사람이 안 보니까 UX 이점 없음"
+  - "검증·테스트 — 전체 답이 있어야 assertion 가능"
+
+hidden_costs_of_streaming:
+  - "네트워크 끊기면 답이 반만 옴 — 재시도 로직 필요"
+  - "중간 파싱 어려움 — JSON 스트리밍은 반쯤 완성된 구조 처리 까다로움"
+  - "로깅 복잡 — 여러 청크를 모아야 전체 응답이 됨"
+  - "프록시·캐시와 궁합 안 맞음 — SSE는 특수 설정 필요"
+  - "타임아웃 관리 — 오래 스트리밍 중이면 idle 타임아웃 걸리기도"
+
+harness_applications:
+  - "Claude Code REPL — 답변을 실시간 스트리밍 (사용자 기다림 체감 감소)"
+  - "CI/CD에서 에이전트 실행 — 배치 모드 선호 (로그 전체 필요)"
+  - "Chat 에이전트 → 스트리밍, Tool use 에이전트 → 배치"
+  - "Extended Thinking 사고 과정 → 스트리밍으로 '생각 중'을 보여주기도"
+  - "긴 코드 생성 → 스트리밍 + 실시간 문법 검증으로 오류 조기 발견"
+
+real_world_examples:
+  - "ChatGPT, Claude.ai — 답을 글자 하나씩 타이핑하듯 스트리밍"
+  - "GitHub Copilot 자동완성 — 스트리밍으로 제안 빨리 보여줌"
+  - "OpenAI API / Anthropic API — `stream: true` 파라미터로 선택"
+  - "Replit AI, Cursor — 대부분 스트리밍 기본값"
+  - "Backend LLM 호출 (요약, 분류) — 대개 배치 (UX 불필요)"
+
+how_it_feels_to_user:
+  streaming:
+    - "⏱️ 0.5초 후부터 뭔가 보임 → 적극적 상호작용 느낌"
+    - "📖 읽으면서 다음 행동 준비 가능"
+    - "❌ '아 방향 틀렸네' → 중간에 끊고 재질문"
+  batch:
+    - "⏳ 10초 동안 로딩 스피너만 → 수동적 대기"
+    - "📬 '짠!' 하고 답 도착 → 그 때부터 읽기 시작"
+    - "🚫 중간 수정 불가 — 끝까지 기다려야 함"
+
+exercise:
+  type: 판별
+  description: |
+    다음 상황에 스트리밍 vs 배치 중 어느 쪽?
+    1. "고객용 챗봇 응답" → ?
+    2. "월간 리포트 JSON으로 생성" → ?
+    3. "긴 블로그 글 초안 쓰기" → ?
+    4. "이 이메일의 감정 분류 (positive/negative)" → ?
+    5. "코드 생성 + 자동 린트 검증" → ?
+
+concepts: []
+
+verdict: "스트리밍과 배치의 차이를 한 문장으로 설명 가능, 내 작업에 뭐가 맞는지 이유 대고 고를 수 있다 / Can explain streaming vs batch and pick the right mode with clear reasoning"

@@ -1,0 +1,125 @@
+title: "추론 모델 — 답하기 전에 생각하는 AI / Reasoning Models"
+phase: 3
+module: 4
+track: basic
+duration: 30min
+objective: "추론 모델(o1/o3, Extended Thinking 등)이 일반 모델과 어떻게 다른지, 언제 써야 비용 대비 가치가 나오는지 판별한다 / Understand how reasoning models differ from classic LLMs and when the extra cost pays off."
+
+key_concepts:
+  - "추론 모델 (Reasoning Model) — 답하기 전에 스스로 '생각 단계'를 거치는 LLM"
+  - "Extended Thinking — Claude의 내부 추론 기능 (토큰 할당으로 생각 깊이 조절)"
+  - "Chain-of-Thought (CoT) — '단계별로 생각하자'를 모델이 자동으로 함"
+  - "Internal Monologue — 사용자에게 안 보이는 내부 사고 과정"
+  - "Thinking Budget — 생각에 쓸 수 있는 토큰 한도 (비용·시간 제한)"
+  - "Classic Model — GPT-4o, Claude Sonnet 같은 '바로 답하는' 모델"
+
+concept_pairs:
+  - ["Classic (바로 답함)", "Reasoning (생각 후 답함)"]
+  - ["빠름·저렴", "느림·비쌈"]
+  - ["복잡도 낮음에 유리", "복잡도 높음에 유리"]
+  - ["Chain-of-Thought 프롬프트", "Internal Reasoning"]
+  - ["사람 눈에 안 보이는 사고", "사람 눈에 보이는 답"]
+
+diagram_type: comparison
+diagram_title: "Classic vs Reasoning 모델 비교"
+diagram_description: |
+  ┌─ Classic Model (예: Claude Sonnet, GPT-4o) ─┐
+  │  입력 → [즉시 응답 생성] → 출력               │
+  │  속도: ⚡⚡⚡ 빠름                              │
+  │  비용: 💰 저렴                                │
+  │  복잡한 추론: ⚠️ 가끔 틀림                    │
+  └───────────────────────────────────────────────┘
+
+  ┌─ Reasoning Model (예: o1, o3, Claude Extended Thinking) ─┐
+  │  입력 → [내부 사고: 단계1→단계2→단계3→검증] → 출력        │
+  │        (사용자에게 안 보이는 '생각 공간')                 │
+  │  속도: 🐢 느림 (10~60초)                                 │
+  │  비용: 💰💰💰 비쌈 (생각 토큰도 과금)                    │
+  │  복잡한 추론: ✅ 훨씬 정확                                │
+  └───────────────────────────────────────────────────────────┘
+
+  시험 비유:
+  - Classic = 즉답형 퀴즈쇼 (빠른 반응, 쉬운 문제에 유리)
+  - Reasoning = 수능 수학 문제 (연습장에 풀이 쓰고 답 내는 학생)
+
+analogy: |
+  Classic 모델 = 반사 신경 좋은 신입사원
+    "이 보고서 요약해줘" → 1초 만에 요약 뽑음. 일상 업무 최강.
+
+  Reasoning 모델 = 꼼꼼한 시니어 엔지니어
+    "이 시스템 왜 장애 났는지 원인 찾아" → 10분 동안 여러 가설 세우고
+    로그 뒤져가며 검증 후 답. 복잡한 문제에 강함.
+
+  신입만 시키면 큰 문제에서 놓치는 게 많고,
+  시니어만 시키면 회의실 예약 하나 잡는데도 30분 씀.
+  → 쓰임새에 맞게 고르는 게 핵심.
+
+when_to_use:
+  reasoning_model:
+    - "수학·논리 문제 (경시대회, 증명)"
+    - "멀티스텝 디버깅 (여러 파일 관계 분석)"
+    - "전략 수립 (A/B/C 선택지의 장단점 비교)"
+    - "복잡한 계획 (프로젝트 전체 설계)"
+    - "안전 검증 (보안 취약점 찾기)"
+    - "답 틀리면 치명적인 경우 (법률, 의료 리서치)"
+  classic_model:
+    - "일반 대화·질의응답"
+    - "문서 요약"
+    - "번역·리라이팅"
+    - "코드 자동완성 (한 줄 단위)"
+    - "분류·라벨링"
+    - "빠른 반응이 중요한 UX (챗봇)"
+
+thinking_budget:
+  description: |
+    Claude Extended Thinking은 '생각에 쓸 토큰 한도'를 지정할 수 있음.
+    기본값: 31,999 토큰 (대략 24,000 단어 분량의 내부 사고)
+
+    조절 방법:
+    - 많이 생각해줘 → budget 증가 (더 비쌈, 더 정확)
+    - 빠르게 답해줘 → budget 감소 (더 싸고 빠름, 얕은 답)
+
+    트레이드오프:
+    - 간단한 질문에 budget 크게 → 낭비 (오버엔지니어링)
+    - 복잡한 문제에 budget 작게 → 피상적 답
+
+pricing_reality:
+  - "o1-preview는 Classic GPT-4o 대비 6~10배 비쌈"
+  - "Claude Opus Extended Thinking은 Sonnet 대비 5배 느리고 3배 비쌈"
+  - "'생각 토큰'도 과금 대상 — 답변 토큰만 아님"
+  - "한 달에 Reasoning만 쓰면 청구서 깜짝 놀람"
+
+harness_applications:
+  - "중요 결정 단계에만 Reasoning 모델 호출 (나머지는 Classic)"
+  - "Classic이 답 낸 후 Reasoning으로 검증하는 2단계"
+  - "에이전트의 Planner 역할 = Reasoning, Executor = Classic"
+  - "Cost guard: Reasoning 호출 횟수 상한 설정"
+
+real_world_examples:
+  - "OpenAI o1 — 2024년 공개된 최초의 상용 reasoning model"
+  - "o3 / o3-mini — o1의 후속, 더 빠르고 저렴한 추론"
+  - "Claude 4.x Extended Thinking — 토글로 켜고 끄기"
+  - "DeepSeek R1 — 오픈소스 reasoning model (2025년)"
+  - "Gemini 2.0 Flash Thinking — 구글의 reasoning 버전"
+
+pitfalls:
+  - "쉬운 문제에 Reasoning 쓰면 돈 낭비 + 응답 지연"
+  - "Reasoning도 환각(hallucination) 일으킴 — 생각 많이 했다고 정답 보장 아님"
+  - "내부 사고가 사용자에게 안 보여서 '왜 그 답인지' 디버깅 어려움"
+  - "Reasoning 토큰이 컨텍스트 윈도우 먹음 (긴 사고 = 실제 답 공간 줄어듦)"
+
+exercise:
+  type: 판별
+  description: |
+    다음 작업에 Classic vs Reasoning 중 뭘 추천?
+    1. "이메일에 정중한 답장 써줘" → ?
+    2. "경쟁사 3곳의 가격 정책 비교 분석" → ?
+    3. "이 코드에 SQL 인젝션 취약점 있는지 찾아" → ?
+    4. "오늘 점심 뭐 먹지?" → ?
+    5. "이 법률 조항이 우리 계약서에 어떻게 영향 주는지 분석" → ?
+
+concepts:
+  - chain-of-thought
+  - reflection
+
+verdict: "Classic vs Reasoning의 차이를 한 문장으로 설명 가능, 비용/시간 대비 가치가 나오는 상황을 골라낼 수 있다 / Can explain Classic vs Reasoning trade-offs and pick the right one for each task"

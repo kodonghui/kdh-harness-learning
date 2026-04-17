@@ -1,0 +1,163 @@
+title: "모델 선택 전략 — Haiku / Sonnet / Opus 언제 뭘? / Model Selection Strategy"
+phase: 5
+module: 5
+track: basic
+duration: 25min
+objective: "Claude의 3 티어(Haiku/Sonnet/Opus) 차이를 이해하고, 작업별로 어떤 모델을 골라야 비용·성능 균형이 맞는지 판별한다 / Understand Haiku/Sonnet/Opus tiers and pick the right model for each task."
+
+key_concepts:
+  - "Model Tier — 같은 모델 패밀리의 속도·비용·지능 스펙트럼"
+  - "Haiku — 가장 빠르고 저렴, 기본 성능 양호"
+  - "Sonnet — 중간, 개발 작업에 최고 균형 (코딩·에이전트 기본값)"
+  - "Opus — 가장 강력, 복잡한 추론·분석 전용"
+  - "Capability Ceiling — 모델이 도달할 수 있는 최대 능력치"
+  - "Cost-per-Task — 한 작업을 끝내는 데 드는 총 비용 (입력+출력 토큰 × 단가)"
+  - "Escalation Pattern — 싼 모델 먼저 → 부족하면 비싼 모델로 승급"
+
+concept_pairs:
+  - ["Haiku (신입사원)", "Sonnet (미드레벨)", "Opus (시니어)"]
+  - ["싸고 빠름", "균형", "비싸고 깊음"]
+  - ["High-volume / 간단", "일반 개발", "연구·전략"]
+  - ["90% 품질", "best in class for coding", "deepest reasoning"]
+
+diagram_type: comparison
+diagram_title: "Haiku vs Sonnet vs Opus 스펙"
+diagram_description: |
+  ┌─ Haiku 4.5 ───────────────────────────────────┐
+  │  속도: ⚡⚡⚡⚡⚡ (Sonnet 대비 3배 빠름)         │
+  │  비용: 💰 (Sonnet 대비 1/3)                     │
+  │  지능: ⭐⭐⭐⭐ (Sonnet의 ~90%)                  │
+  │  컨텍스트: 200K                                │
+  │  적합: 분류, 요약, 간단 Q&A, 대용량 배치        │
+  └────────────────────────────────────────────────┘
+
+  ┌─ Sonnet 4.6 ───────────────────────────────────┐
+  │  속도: ⚡⚡⚡ (기준점)                           │
+  │  비용: 💰💰 (기준점)                            │
+  │  지능: ⭐⭐⭐⭐⭐ (코딩 최강)                     │
+  │  컨텍스트: 200K (1M 확장 가능)                 │
+  │  적합: 메인 개발, 멀티에이전트 오케스트레이터   │
+  └────────────────────────────────────────────────┘
+
+  ┌─ Opus 4.6 ─────────────────────────────────────┐
+  │  속도: 🐢 (Sonnet 대비 2~3배 느림)              │
+  │  비용: 💰💰💰💰💰 (Sonnet 대비 5배)              │
+  │  지능: ⭐⭐⭐⭐⭐⭐ (가장 깊은 추론)               │
+  │  컨텍스트: 200K (1M 확장)                      │
+  │  적합: 아키텍처 설계, 복잡 분석, 연구            │
+  └────────────────────────────────────────────────┘
+
+analogy: |
+  신입 / 미드 / 시니어 엔지니어 비유:
+  - Haiku = 신입사원. 빠르고 싸다. 간단 작업은 최강 가성비.
+    "이 문서 3줄 요약" / "이 코드에 버그 있는지 yes/no"
+  - Sonnet = 미드레벨. 일상 개발·분석 대부분을 커버.
+    "이 PR 리뷰해줘" / "이 기능 구현해줘" / "여러 도구 오케스트레이션"
+  - Opus = 시니어 아키텍트. 비싸지만 큰 그림에 유일한 답.
+    "이 시스템 아키텍처 다시 설계" / "3개 제안 중 어느 게 장기적으로 최선"
+
+  신입만 쓰면 → 큰 문제에서 놓침.
+  시니어만 쓰면 → 회의실 예약에도 시니어 쓰는 꼴 (돈낭비).
+
+when_to_use:
+  haiku:
+    - "대용량 분류 (스팸 / 정상, 감정 분석)"
+    - "1회성 간단 Q&A (FAQ 봇)"
+    - "워커 에이전트 (멀티 에이전트의 일꾼)"
+    - "Pair programming 자동완성 (한 줄 제안)"
+    - "로그 요약, 텍스트 추출"
+    - "pre-check / validation (본격 작업 전 간단 검증)"
+  sonnet:
+    - "메인 개발 작업 (기능 구현, 리팩터링)"
+    - "멀티 에이전트 오케스트레이터 (서브에이전트 조율)"
+    - "복잡한 코딩 (여러 파일, 다단계)"
+    - "도구 호출이 많은 에이전트"
+    - "CI/CD 자동화 에이전트"
+    - "일반 챗봇·보조"
+  opus:
+    - "시스템 아키텍처 결정 (한번 정하면 오래 감)"
+    - "복잡한 리서치 (여러 소스 통합 분석)"
+    - "전략 수립 (장기 계획, 트레이드오프 분석)"
+    - "법률·의료 등 '틀리면 큰일' 분야"
+    - "Red team / 보안 취약점 깊이 분석"
+    - "에이전트가 틀리면 비용 큰 1회 결정"
+
+pricing_reality:
+  input_token_ratio:
+    - "Haiku: 1x (기준)"
+    - "Sonnet: ~3x Haiku"
+    - "Opus: ~15x Haiku"
+  total_task_cost:
+    note: "단순 토큰 단가 × 토큰 수 아님 — Opus는 더 많이 생각해서 출력 토큰도 많음"
+    example: |
+      "이 버그 찾아서 수정" 작업:
+        Haiku:  $0.02 (간단한 건 잘 함. 복잡하면 헤맴)
+        Sonnet: $0.10 (대부분 해결)
+        Opus:   $0.80 (확실히 해결 + 왜 그런지 설명 풍부)
+
+escalation_pattern:
+  name: "Cheap-First Escalation"
+  description: |
+    저렴한 모델 먼저 시도 → 못 하면 비싼 모델로.
+
+    예시 플로우:
+    1. Haiku에게 먼저 시도 (80% 작업은 여기서 끝)
+    2. Haiku가 "잘 모르겠어요" 또는 결과 품질 낮으면 → Sonnet 재시도
+    3. Sonnet도 애매하면 → Opus로 승급
+
+    주의: "확인 단계"에 비용 추가됨 → 간단 작업을 매번 Haiku→Sonnet→Opus로
+    3번 돌리면 오히려 더 비쌈. 작업 복잡도 사전 판별이 핵심.
+
+multi_agent_tiering:
+  title: "멀티 에이전트 시스템의 티어 전략"
+  pattern: |
+    Main Orchestrator (Sonnet) ← 사용자와 대화, 작업 계획
+      ├── Worker Agent 1 (Haiku) ← 간단 조회·정리
+      ├── Worker Agent 2 (Haiku) ← 분류·라벨링
+      └── Specialist Agent (Opus) ← 복잡 결정만 여기
+
+    결과: 전체 비용은 Sonnet × 1 + Haiku × N + Opus × (가끔)
+    Sonnet만 N번 쓰는 것보다 훨씬 저렴
+
+real_world_examples:
+  - "Cursor: 자동완성은 작은 모델, Compose(큰 변경)는 Sonnet/Opus"
+  - "ChatGPT: 기본 4o-mini(싼 것), Pro 플랜에서 o1 사용 가능"
+  - "Claude Code Task tool: subagent마다 다른 model 지정 가능 (`model: haiku`)"
+  - "Perplexity: 빠른 답 Sonnet, Pro Search는 Opus"
+  - "Anthropic API batch: 50% 할인 + Haiku = 대량 작업 최적화"
+
+pitfalls:
+  - "Haiku에 과한 기대 → 복잡한 것도 시키면 품질 급락"
+  - "Opus로 간단 작업 → 돈 낭비 + 응답 느림으로 UX 악화"
+  - "모델 바꾸면 프롬프트 다시 튜닝해야 할 수도 (Haiku용 ≠ Opus용)"
+  - "컨텍스트 길이만 보고 선택하면 실수 (1M context ≠ 1M context 내내 잘함)"
+  - "싸다고 Haiku만 쓰면 에이전트가 반복 실수 → 결국 더 비싸짐"
+
+decision_matrix:
+  questions:
+    - "출력 정확도가 시스템 전체에 영향 주는가? (Y → Sonnet/Opus)"
+    - "하루에 몇 번 호출되는가? (수천 번 이상 → Haiku 후보)"
+    - "사람이 결과를 바로 쓰나? (Y → Sonnet 이상)"
+    - "여러 단계 추론 필요한가? (Y → Opus)"
+    - "응답 지연이 UX에 치명적인가? (Y → Haiku)"
+
+harness_applications:
+  - "Claude Code rules에 model 선택 가이드라인 작성"
+  - "에이전트 정의 파일의 frontmatter에 `model:` 필드로 고정"
+  - "동적 선택: 작업 복잡도 판별 → 적정 모델 라우팅"
+  - "비용 가드: 이번 달 Opus 사용 상한 설정"
+
+exercise:
+  type: 판별
+  description: |
+    다음 작업에 Haiku / Sonnet / Opus 중 뭘 추천?
+    1. "하루 10만 건 고객 문의 분류" → ?
+    2. "우리 회사 3년 기술 전략 수립" → ?
+    3. "이 PR의 버그 찾고 수정안 제시" → ?
+    4. "실시간 코드 자동완성 (매 키 입력마다)" → ?
+    5. "법률 계약서 리스크 분석" → ?
+    6. "이메일에 1~2문장 답장" → ?
+
+concepts: []
+
+verdict: "Haiku/Sonnet/Opus의 차이를 한 문장씩 설명 가능, 내 작업에 맞는 모델을 근거 대고 고를 수 있다 / Can explain each tier in one sentence and justify model choice per task"

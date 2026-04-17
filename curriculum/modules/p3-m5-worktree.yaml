@@ -1,0 +1,128 @@
+title: "Worktree와 병렬 에이전트 격리 / Worktrees & Parallel Agent Isolation"
+phase: 3
+module: 5
+track: basic
+duration: 30min
+objective: "여러 에이전트가 같은 코드베이스를 동시에 수정할 때 발생하는 충돌 문제와, git worktree를 이용한 격리 방법을 이해한다 / Understand file conflicts with parallel agents and how git worktrees isolate them."
+
+key_concepts:
+  - "Git Worktree — 같은 저장소를 여러 폴더에 동시에 체크아웃하는 git 기능"
+  - "격리 (Isolation) — 각 에이전트가 자기 전용 폴더에서 작업 (충돌 0)"
+  - "병렬 실행 (Parallel Execution) — 여러 에이전트 동시 가동으로 시간 절약"
+  - "Merge Conflict — 같은 파일을 여러 곳에서 수정해서 합칠 때 생기는 충돌"
+  - "브랜치 (Branch) — 코드의 평행 우주 (main, feature-1, feature-2...)"
+  - "Copy-on-Write — 파일을 실제로 복제하지 않고 '변경된 것만' 저장 (효율적)"
+
+concept_pairs:
+  - ["1 폴더 + 1 에이전트 (안전)", "1 폴더 + N 에이전트 (충돌 폭탄)"]
+  - ["Worktree N개 + 에이전트 N개 (격리)", "동시에 같은 파일 수정 (위험)"]
+  - ["병렬 (동시에)", "순차 (하나씩)"]
+  - ["복사본 여러 개", "공유본 하나"]
+
+diagram_type: structure
+diagram_title: "Worktree 격리 구조"
+diagram_description: |
+  ❌ 잘못된 방식 (같은 폴더, 동시 수정):
+  ┌─ my-project/ ────────────────┐
+  │  src/auth.ts                  │
+  │    ↑        ↑                 │
+  │  Agent 1    Agent 2           │
+  │  "함수 리팩터링"  "새 기능 추가" │
+  │    ↓        ↓                 │
+  │  💥 같은 파일 덮어쓰기 → 한쪽 수정 날아감
+  └────────────────────────────────┘
+
+  ✅ Worktree 격리:
+  my-project/              (main 브랜치, 원본)
+    ↓ git worktree add ../wt-agent1 feature-1
+    ↓ git worktree add ../wt-agent2 feature-2
+  ┌─ wt-agent1/ ────┐   ┌─ wt-agent2/ ────┐
+  │  src/auth.ts    │   │  src/auth.ts    │
+  │  Agent 1 작업   │   │  Agent 2 작업   │
+  │  (독립 공간)    │   │  (독립 공간)    │
+  └─────────────────┘   └─────────────────┘
+         ↓                    ↓
+     PR 1 생성              PR 2 생성
+         ↘                  ↙
+          main에 순차 merge
+          (충돌 나면 그때 해결)
+
+analogy: |
+  같은 원고를 여러 편집자가 동시 수정한다고 생각해보세요.
+  - 원본 1장에 여럿이 빨간펜 → 누가 뭘 수정했는지 모름. 충돌 폭탄.
+  - 복사본 여러 장 만들어 각자 수정 → 나중에 diff로 합치기 쉬움.
+
+  Worktree = 편집자마다 복사본 한 장씩 주는 시스템.
+  git이 "똑똑한 복사본"을 만들어줘서 진짜로 파일을 N배 복제하진 않음
+  (Copy-on-Write: 변경된 부분만 저장).
+
+the_problem:
+  title: "왜 격리가 필요한가"
+  scenarios:
+    - "리팩터링 에이전트와 테스트 작성 에이전트 동시 실행 → 파일 덮어쓰기"
+    - "3개 기능을 병렬 개발 → 한 에이전트 실수가 전체 망침"
+    - "Code review 에이전트 + 버그 수정 에이전트 → 읽던 중 파일 바뀜 → 혼란"
+    - "한 에이전트가 테스트 돌리는 중 다른 에이전트가 의존성 업데이트 → 테스트 폭파"
+
+the_solution:
+  title: "Worktree 격리 패턴"
+  steps:
+    1: "main 저장소에서 worktree 여러 개 생성 (각자 다른 브랜치)"
+    2: "에이전트 N명에게 각자 전용 worktree 할당"
+    3: "각 에이전트가 독립적으로 작업 (충돌 0)"
+    4: "완료 후 각 worktree에서 PR 생성"
+    5: "메인 브랜치에서 순차 merge (충돌 시점 명확)"
+
+  cli_example: |
+    # 예시 (비개발자는 Claude Code가 대신 실행함)
+    cd my-project
+    git worktree add ../wt-feature-a feature/a
+    git worktree add ../wt-feature-b feature/b
+    # 이제 ../wt-feature-a, ../wt-feature-b에서 각각 에이전트 실행
+
+when_to_use:
+  use_worktree:
+    - "여러 에이전트를 동시에 돌려서 시간 절약하고 싶을 때"
+    - "실험적 리팩터링을 원본 건드리지 않고 해보고 싶을 때"
+    - "메인 작업 중에 '잠깐 다른 기능' 작업 끼워넣을 때"
+    - "에이전트가 실수하면 해당 worktree만 버리면 되는 구조 원할 때"
+  skip_worktree:
+    - "에이전트 1개만 쓸 때 (오버엔지니어링)"
+    - "작업이 5분 내 끝날 때 (설정 비용이 더 큼)"
+    - "같은 폴더에서 단순 조회·읽기만 할 때"
+
+real_world_examples:
+  - "Claude Code의 `worktree` isolation 모드 — Agent tool에서 `isolation: \"worktree\"` 지정"
+  - "Cursor의 Background Agents — 멀티 작업을 각자 격리된 환경에서 실행"
+  - "GitHub Codespaces — PR별 격리 환경"
+  - "Git 내장 worktree 기능 — 2015년부터 존재, AI 에이전트 시대에 재발견됨"
+
+pitfalls:
+  - "각 worktree도 결국 디스크 차지 (전부 다 만들면 용량 폭발)"
+  - "작업 끝나면 반드시 정리 (git worktree remove) — 안 그러면 orphan 생김"
+  - "worktree끼리는 독립이지만 main 브랜치는 공유 → main에 푸시할 때 race"
+  - "node_modules, .env 같은 것은 worktree마다 따로 설치 필요할 수 있음"
+  - "에이전트가 worktree 경계를 넘어가면 격리 의미 없음 (프롬프트로 막아야)"
+
+harness_applications:
+  - "멀티 에이전트 시스템의 기본 격리 수단"
+  - "Fork-Join 패턴 구현체 (N개 병렬 → 결과 수집 → 통합)"
+  - "에이전트 실패 격리 (한 worktree 망가져도 나머지 영향 0)"
+  - "코드 리뷰 + 수정 + 테스트를 동시에 3 에이전트로"
+
+exercise:
+  type: 판별
+  description: |
+    다음 상황에서 Worktree 격리가 필요한가?
+    1. "버그 하나만 수정" → ?
+    2. "이 기능 3가지 다른 접근법 동시 시도" → ?
+    3. "README 오타 하나 수정" → ?
+    4. "리팩터링 + 테스트 + 문서 동시 진행" → ?
+    5. "본문 읽기만 하는 코드 리뷰 에이전트 5개" → ?
+
+concepts:
+  - worktree-isolation
+  - context-isolation
+  - fork-join
+
+verdict: "Worktree가 해결하는 충돌 문제를 설명 가능, 언제 격리를 쓰고 언제 오버엔지니어링인지 판별 가능 / Can explain what problem worktrees solve and when isolation is (or isn't) worth it"

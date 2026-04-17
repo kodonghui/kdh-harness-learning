@@ -1,0 +1,93 @@
+title: "RAG 심화 — 외부 지식 끌어오기 / RAG Deep Dive"
+phase: 2
+module: 4
+track: basic
+duration: 30min
+objective: "RAG가 어떻게 동작하는지, 언제 쓰고 언제 안 쓰는지, 메모리/긴 컨텍스트와 뭐가 다른지 판별한다 / Understand how RAG works, when to use it vs long context or memory."
+
+key_concepts:
+  - "RAG (Retrieval-Augmented Generation) — 필요할 때 외부에서 정보 찾아 답 만드는 패턴"
+  - "임베딩 (Embedding) — 문장을 숫자 벡터로 바꿔서 '의미 거리'를 계산 가능하게"
+  - "벡터 DB (Vector Database) — 임베딩 저장/검색 전용 데이터베이스 (Pinecone, Weaviate, Qdrant 등)"
+  - "Retrieval → Augmentation → Generation — 3단계 파이프라인"
+  - "Chunking — 긴 문서를 검색 가능한 단위로 쪼개는 작업"
+  - "Hybrid Search — 키워드 검색 + 의미 검색 같이 쓰기"
+  - "Reranking — 검색 결과 N개 중 정말 관련 있는 걸 다시 추려냄"
+  - "RAG vs Fine-tuning — 새 지식 주입 vs 모델 자체 학습"
+
+concept_pairs:
+  - ["RAG (찾아서 답함)", "긴 컨텍스트 (다 읽고 답함)"]
+  - ["RAG (문서 외부에)", "메모리 (모델 안에)"]
+  - ["키워드 검색 (정확 일치)", "의미 검색 (뜻으로 매칭)"]
+  - ["Chunk 작게 (정확)", "Chunk 크게 (문맥)"]
+  - ["RAG (언제든 업데이트)", "Fine-tuning (한번 학습하면 고정)"]
+
+diagram_type: flowchart
+diagram_title: "RAG 파이프라인"
+diagram_description: |
+  [사용자 질문]
+        ↓
+  [임베딩 변환] — 질문을 벡터로
+        ↓
+  [벡터 DB 검색] — 비슷한 뜻 문서 상위 N개 찾기
+        ↓
+  [Reranking] — N개 중 진짜 관련 있는 K개 추려냄
+        ↓
+  [프롬프트 조립] — "다음 문서를 참고해서 답하세요: [찾은 문서들]"
+        ↓
+  [LLM 답변 생성]
+
+  핵심: 모델은 자기가 "아는 것"이 아니라 "방금 찾은 것"을 기반으로 답함.
+  모델 자체는 안 바뀜. 외부 DB만 업데이트하면 새 정보 반영됨.
+
+analogy: |
+  도서관 사서에게 물어보는 것과 같음.
+  - 사서(= 검색 시스템)가 질문 듣고 관련 책 5권 골라옴
+  - 당신(= LLM)은 그 5권을 읽고 답을 만듦
+  - 사서 없이는 당신의 기억(= 훈련 데이터)만으로 답해야 함
+  - 책이 새로 들어오면? → 사서 목록만 업데이트. 당신(모델)은 그대로.
+
+when_to_use:
+  rag:
+    - "자주 바뀌는 정보 (회사 정책, 제품 스펙, 최신 뉴스)"
+    - "모델 훈련 이후 생긴 정보 (2025년 이후 사건 등)"
+    - "사적·도메인 특화 데이터 (회사 내부 위키, 법률 문서)"
+    - "출처 표시가 필요한 경우 (어느 문서에서 답 왔는지 추적)"
+    - "문서가 너무 많아서 컨텍스트에 다 못 넣는 경우"
+  long_context:
+    - "문서가 소수(5~10개) + 전체 맥락이 중요한 경우"
+    - "문서 간 관계·비교가 중요한 경우"
+    - "검색으로 놓칠까 걱정되는 경우 (법률, 의료)"
+  claude_md_memory:
+    - "거의 안 바뀌는 규칙·선호 (코딩 스타일, 팀 컨벤션)"
+    - "프로젝트 전역 컨텍스트"
+
+pitfalls:
+  - "Chunk 너무 작게 쪼개면 문맥 손실 → 헛소리"
+  - "Chunk 너무 크게 하면 노이즈 많음 → 정답 희석"
+  - "의미 검색만 쓰면 고유명사·약어 놓침 → Hybrid 권장"
+  - "최신 문서가 오래된 문서를 못 덮어씀 (버전 관리 필요)"
+  - "검색 결과 0개여도 LLM은 '모른다'가 아니라 지어낼 수 있음 (환각)"
+
+real_world_examples:
+  - "ChatGPT + PDF 업로드 — 업로드한 문서를 RAG로 검색"
+  - "Notion AI — 워크스페이스 내 페이지를 RAG로 검색"
+  - "Claude Projects — 프로젝트 파일을 자동 RAG"
+  - "Perplexity — 웹 검색 결과를 실시간 RAG"
+  - "기업용 챗봇 — 사내 위키를 RAG로 연결"
+
+exercise:
+  type: 판별
+  description: |
+    다음 상황에서 RAG / 긴 컨텍스트 / 메모리 중 뭐가 적합한가?
+    1. "우리 회사 2026년 복리후생 규정이 뭐야?" (회사 내부 문서 500페이지)
+    2. "이 PR의 8개 파일 관계를 설명해줘" (파일 8개)
+    3. "내가 비개발자라는 걸 기억해줘" (선호도)
+    4. "어제 나온 Claude 4.6 뉴스가 뭐야?" (최신 정보)
+
+concepts:
+  - rag
+  - embedding
+  - llm-wiki
+
+verdict: "RAG의 3단계(검색→증강→생성)를 설명 가능, 언제 RAG 대신 긴 컨텍스트나 메모리를 써야 하는지 판별 가능 / Can explain the 3 stages of RAG and decide when to use RAG vs long context vs memory"

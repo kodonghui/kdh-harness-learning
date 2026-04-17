@@ -13,18 +13,20 @@
 ## Overview / 개요
 
 ```
-Core (6 Phases × 3 modules = 18)  ── "Understand + judge + diagnose"
-  ├── Phase 0: Foundations              (agent, harness, agent loop)
-  ├── Phase 1: Tools & Connectivity     (tool layer, protocols, auth)
-  ├── Phase 2: Context & Memory         (context, memory, prompts)
-  ├── Phase 3: Execution & Workflow     (patterns, multi-agent, hooks)
-  ├── Phase 4: Safety & Verification    (state/safety, failure, security)
-  └── Phase 5: Observation & Ops        (observability, cost/perf, evaluation)
+Core (6 Phases, 25 modules)       ── "Understand + judge + diagnose"
+  ├── Phase 0: Foundations              (agent, harness, agent loop)                     [3]
+  ├── Phase 1: Tools & Connectivity     (tool layer, protocols, auth)                    [3]
+  ├── Phase 2: Context & Memory         (context, memory, prompts, RAG, determinism)     [5]
+  ├── Phase 3: Execution & Workflow     (patterns, multi-agent, hooks,                   [6]
+  │                                      reasoning models, worktrees, streaming)
+  ├── Phase 4: Safety & Verification    (state/safety, failure, security)                [3]
+  └── Phase 5: Observation & Ops        (observability, cost/perf, evaluation,           [5]
+                                         prompt caching, model selection)
 
 Advanced (2 modules, optional)    ── "Compare + design"
 Practical (3 modules)             ── "Build your own pipeline"
 
-Total: 23 modules
+Total: 30 modules
 ```
 
 ## Learning Principles / 학습 원칙
@@ -73,52 +75,59 @@ Total: 23 modules
 | 4 | `p1-m2-protocols` | 프로토콜 / Protocols (API, MCP, A2A) | 25 min |
 | 5 | `p1-m3-auth-connect` | 인증과 연결 / Auth & connectivity | 25 min |
 
-### Phase 2 — Context & Memory / 컨텍스트와 메모리 (3 modules)
+### Phase 2 — Context & Memory / 컨텍스트와 메모리 (5 modules)
 
 | # | Module | Title | Duration |
 |---|--------|-------|---------|
-| 6 | `p2-m1-context` | 컨텍스트 윈도우 심화 / Context window deep-dive | 25 min |
-| 7 | `p2-m2-memory` | 메모리 시스템 / Memory systems | 25 min |
-| 8 | `p2-m3-prompt` | 프롬프트와 지시 / Prompts & instructions | 25 min |
+| 6  | `p2-m1-context` | 컨텍스트 윈도우 심화 / Context window deep-dive | 25 min |
+| 7  | `p2-m2-memory` | 메모리 시스템 / Memory systems | 25 min |
+| 8  | `p2-m3-prompt` | 프롬프트와 지시 / Prompts & instructions | 25 min |
+| 9  | `p2-m4-rag` | RAG 심화 / RAG deep dive | 30 min |
+| 10 | `p2-m5-determinism` | 결정론 vs 창의성 / Determinism vs creativity | 25 min |
 
-### Phase 3 — Execution & Workflow / 실행과 워크플로우 (3 modules)
+### Phase 3 — Execution & Workflow / 실행과 워크플로우 (6 modules)
 
 | # | Module | Title | Duration |
 |---|--------|-------|---------|
-| 9  | `p3-m1-patterns` | 실행 패턴 / Execution patterns (ReAct, Plan-and-Execute) | 25 min |
-| 10 | `p3-m2-multi-agent` | 서브에이전트와 멀티에이전트 / Sub-agents & multi-agent | 25 min |
-| 11 | `p3-m3-hooks` | 훅과 자동화 / Hooks & automation | 25 min |
+| 11 | `p3-m1-patterns` | 실행 패턴 / Execution patterns (ReAct, Plan-and-Execute) | 25 min |
+| 12 | `p3-m2-multi-agent` | 서브에이전트와 멀티에이전트 / Sub-agents & multi-agent | 25 min |
+| 13 | `p3-m3-hooks` | 훅과 자동화 / Hooks & automation | 25 min |
+| 14 | `p3-m4-reasoning` | 추론 모델 / Reasoning models (o1, Extended Thinking) | 30 min |
+| 15 | `p3-m5-worktree` | Worktree 격리 / Worktree isolation for parallel agents | 30 min |
+| 16 | `p3-m6-streaming` | 스트리밍 vs 배치 / Streaming vs batch responses | 20 min |
 
 ### Phase 4 — Safety & Verification / 안전과 검증 (3 modules)
 
 | # | Module | Title | Duration |
 |---|--------|-------|---------|
-| 12 | `p4-m1-state-safety` | 상태 관리와 안전장치 / State management & safety | 30 min |
-| 13 | `p4-m2-failure` | 실패감지와 복구 / Failure detection & recovery | 25 min |
-| 14 | `p4-m3-security` | 보안 / Security (prompt injection, sandbox, secrets) | 25 min |
+| 17 | `p4-m1-state-safety` | 상태 관리와 안전장치 / State management & safety | 30 min |
+| 18 | `p4-m2-failure` | 실패감지와 복구 / Failure detection & recovery | 25 min |
+| 19 | `p4-m3-security` | 보안 / Security (prompt injection, sandbox, secrets) | 25 min |
 
-### Phase 5 — Observation & Ops / 관측과 운영 (3 modules)
+### Phase 5 — Observation & Ops / 관측과 운영 (5 modules)
 
 | # | Module | Title | Duration |
 |---|--------|-------|---------|
-| 15 | `p5-m1-observability` | 관측성 / Observability (logs, tracing, monitoring) | 25 min |
-| 16 | `p5-m2-cost-perf` | 비용과 성능 / Cost & performance | 25 min |
-| 17 | `p5-m3-evaluation` | 평가와 벤치마크 / Evaluation & benchmarks | 20 min |
+| 20 | `p5-m1-observability` | 관측성 / Observability (logs, tracing, monitoring) | 25 min |
+| 21 | `p5-m2-cost-perf` | 비용과 성능 / Cost & performance | 25 min |
+| 22 | `p5-m3-evaluation` | 평가와 벤치마크 / Evaluation & benchmarks | 20 min |
+| 23 | `p5-m4-caching` | 프롬프트 캐싱 / Prompt caching (90% cost savings) | 25 min |
+| 24 | `p5-m5-model-selection` | 모델 선택 전략 / Model tier selection (Haiku/Sonnet/Opus) | 25 min |
 
 ### Advanced / 심화 (2 modules, optional)
 
 | # | Module | Title | Duration |
 |---|--------|-------|---------|
-| 18 | `adv-m1-comparison` | 하네스 공통 패턴 비교 / Compare real harnesses | 30 min |
-| 19 | `adv-m2-design` | 하네스 설계 실습 / Design your own harness | 30 min |
+| 25 | `adv-m1-comparison` | 하네스 공통 패턴 비교 / Compare real harnesses | 30 min |
+| 26 | `adv-m2-design` | 하네스 설계 실습 / Design your own harness | 30 min |
 
 ### Practical / 실전 (3 modules)
 
 | # | Module | Title | Duration |
 |---|--------|-------|---------|
-| 20 | `prac-m1-design` | 파이프라인 설계 / Pipeline design | 45 min |
-| 21 | `prac-m2-build` | 파이프라인 구현 / Pipeline build | 60+ min |
-| 22 | `prac-m3-operate` | 파이프라인 운영 / Pipeline operate & compare | 45 min |
+| 27 | `prac-m1-design` | 파이프라인 설계 / Pipeline design | 45 min |
+| 28 | `prac-m2-build` | 파이프라인 구현 / Pipeline build | 60+ min |
+| 29 | `prac-m3-operate` | 파이프라인 운영 / Pipeline operate & compare | 45 min |
 
 ---
 

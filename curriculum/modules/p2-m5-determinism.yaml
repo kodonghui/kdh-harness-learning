@@ -1,0 +1,94 @@
+title: "결정론 vs 창의성 — 같은 답 vs 매번 다른 답 / Determinism vs Creativity"
+phase: 2
+module: 5
+track: basic
+duration: 25min
+objective: "LLM의 temperature 개념을 이해하고, 같은 질문에 항상 같은 답을 원할 때와 매번 다른 답을 원할 때를 판별한다 / Understand temperature and decide when to prioritize deterministic vs creative outputs."
+
+key_concepts:
+  - "Temperature — LLM의 '창의성 조절 다이얼' (0.0 = 고정, 1.0 = 자유)"
+  - "Top-p (Nucleus Sampling) — 후보 단어 풀 크기 조절 (0.1 = 좁게, 0.9 = 넓게)"
+  - "Seed — 같은 seed + 같은 입력 = 같은 출력 (재현 가능)"
+  - "결정론적 실행 (Deterministic Execution) — 입력 같으면 출력도 같음"
+  - "비결정론적 실행 (Non-deterministic Execution) — 같은 입력에도 답이 다름"
+  - "Sampling — 확률 분포에서 단어 뽑는 과정"
+
+concept_pairs:
+  - ["Temperature 0 (로봇)", "Temperature 1 (시인)"]
+  - ["검증 스크립트 (재현 필요)", "브레인스토밍 (다양성 필요)"]
+  - ["Deterministic (테스트용)", "Non-deterministic (대화용)"]
+  - ["같은 답 매번", "매번 다른 관점"]
+
+diagram_type: comparison
+diagram_title: "Temperature 스펙트럼"
+diagram_description: |
+  Temperature 0.0 ───────────────────── Temperature 1.0
+       ↑                                        ↑
+  항상 제일 확률 높은                       확률 낮은 단어도
+  단어만 뽑음                             가끔 뽑음 (다양성)
+
+  예시: "오늘 날씨가 _____"
+    T=0.0 → "좋다" (항상)
+    T=0.3 → "좋다" 80%, "맑다" 15%, "따뜻하다" 5%
+    T=0.7 → "좋다" 40%, "맑다" 25%, "따뜻하다" 15%, "별로다" 10%...
+    T=1.0 → 모든 단어가 확률대로 나옴 (가끔 엉뚱한 답)
+
+  0이라고 100% 같은 답 보장은 아님 (GPU 부동소수점 오차로 1~2% 차이 가능)
+  완전 재현은 seed까지 고정해야 함
+
+analogy: |
+  요리사의 두 모드:
+  - Temperature 0 = 레시피 그대로 매번 똑같이 만듦 (프랜차이즈 매뉴얼)
+  - Temperature 1 = 기분 따라 재료 바꿔가며 실험 (셰프 창작)
+
+  어느 쪽이 맞냐? → 상황에 따라 다름.
+  - 맥도날드 빅맥은 Temperature 0 (어느 지점이든 같은 맛 보장)
+  - 미쉐린 레스토랑은 Temperature 0.7 (방문할 때마다 새로운 경험)
+
+when_temperature_matters:
+  use_low_temp_0_to_0_3:
+    - "검증·테스트 스크립트 (맞았는지 매번 같은 방식으로 체크)"
+    - "코드 생성 (문법 틀리면 안 됨)"
+    - "구조화된 출력 (JSON, YAML — 포맷 깨지면 안 됨)"
+    - "사실 조회 (API 명세 같은 거 — 지어내면 큰일)"
+    - "분류 작업 (같은 입력에 같은 라벨)"
+  use_medium_temp_0_5_to_0_7:
+    - "일반 대화·질의응답"
+    - "문서 요약 (약간의 변주 허용)"
+    - "번역 (자연스러움 + 일관성 균형)"
+  use_high_temp_0_8_to_1_0:
+    - "브레인스토밍 (아이디어 많이 뽑기)"
+    - "창작 (소설, 마케팅 카피)"
+    - "다양한 관점 생성 (찬반 양론 같이 쓰기)"
+
+harness_applications:
+  - "에이전트 내부 검증 단계 → temperature 0 (확인은 늘 같아야)"
+  - "에이전트 생성 단계 → 작업 성격에 따라 다름"
+  - "멀티 샘플링 → temperature 0.7로 N번 돌려 다양한 답 얻고 투표"
+
+pitfalls:
+  - "Temperature 0이라고 100% 재현은 아님 (GPU 부동소수점 오차)"
+  - "완전 재현하려면 seed + temperature + 같은 모델 버전 모두 필요"
+  - "창작에 0 쓰면 천편일률적 답 (같은 비유 반복)"
+  - "검증에 0.7 쓰면 '같은 답'인지 판정 어려움 (비교 기준 흔들림)"
+  - "모델별로 temperature 의미가 조금씩 다름 (OpenAI vs Anthropic)"
+
+real_world_examples:
+  - "ChatGPT 기본 = 약 1.0 (대화용, 다양성 선호)"
+  - "GitHub Copilot 코드 제안 = 낮은 temperature (정확성 우선)"
+  - "Stable Diffusion / Midjourney = 높은 랜덤성 (매번 다른 이미지)"
+  - "Claude Code 도구 실행 결정 = 사실상 낮음 (일관성 필요)"
+
+exercise:
+  type: 판별
+  description: |
+    다음 작업의 적정 temperature 추천:
+    1. "JSON 스키마에 맞춰 회사 정보 추출" → ?
+    2. "블로그 제목 10개 아이디어" → ?
+    3. "이 번역이 원문과 일치하는지 판정" → ?
+    4. "3가지 다른 관점으로 이 이슈 분석" → ?
+
+concepts:
+  - deterministic-execution
+
+verdict: "Temperature 다이얼의 의미를 한 문장으로 설명 가능, 내 작업에 맞는 값을 근거 대고 고를 수 있다 / Can explain what temperature controls and justify the value for a given task"

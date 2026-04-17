@@ -1,0 +1,130 @@
+title: "프롬프트 캐싱 — AI 비용 90% 줄이는 비밀 / Prompt Caching"
+phase: 5
+module: 4
+track: basic
+duration: 25min
+objective: "프롬프트 캐싱이 뭔지, 어떻게 90% 비용 절감이 가능한지, 언제 캐싱되고 안 되는지 이해한다 / Understand prompt caching, how it enables 90% cost savings, and when caching applies."
+
+key_concepts:
+  - "Prompt Caching — 반복되는 프롬프트 부분을 캐시해서 다음 호출 때 재사용"
+  - "Cache Write — 처음 캐싱할 때 (약간 비쌈, 25% 할증)"
+  - "Cache Read — 캐시에서 읽을 때 (엄청 쌈, 정가의 10%)"
+  - "TTL (Time To Live) — 캐시 유지 시간 (Anthropic 기본 5분)"
+  - "Cache Breakpoint — '여기까지 캐싱해' 표시하는 지점"
+  - "Static vs Dynamic Content — 안 바뀌는 부분(캐싱 대상) vs 매번 바뀌는 부분"
+
+concept_pairs:
+  - ["Cache Write (처음)", "Cache Read (이후)"]
+  - ["Static (시스템·도구·CLAUDE.md)", "Dynamic (사용자 메시지)"]
+  - ["캐시 적중 (90% 할인)", "캐시 미스 (정가)"]
+  - ["TTL 5분 (기본)", "TTL 1시간 (확장, 유료)"]
+
+diagram_type: flowchart
+diagram_title: "프롬프트 캐싱 동작 원리"
+diagram_description: |
+  1회차 호출 (캐시 없음):
+  ┌─────────────────────────────────────────────┐
+  │ [시스템 프롬프트 5,000토큰]  ←── Cache Write  │ 💰 정가 × 1.25
+  │ [도구 정의 3,000토큰]        ←── Cache Write  │ 💰 정가 × 1.25
+  │ [CLAUDE.md 2,000토큰]        ←── Cache Write  │ 💰 정가 × 1.25
+  │ ─────── 여기까지 캐시 경계 ────────          │
+  │ [사용자 메시지 200토큰]                       │ 💰 정가
+  └─────────────────────────────────────────────┘
+  총 비용: (10,000 × 1.25) + 200 = 12,700 토큰어치
+
+  2회차 호출 (5분 이내, 같은 시스템/도구/CLAUDE.md):
+  ┌─────────────────────────────────────────────┐
+  │ [시스템 프롬프트 5,000토큰]  ←── Cache Read   │ 💵 정가 × 0.10
+  │ [도구 정의 3,000토큰]        ←── Cache Read   │ 💵 정가 × 0.10
+  │ [CLAUDE.md 2,000토큰]        ←── Cache Read   │ 💵 정가 × 0.10
+  │ ─────── 여기까지 캐시 경계 ────────          │
+  │ [사용자 메시지 300토큰 — 새 메시지]           │ 💰 정가
+  └─────────────────────────────────────────────┘
+  총 비용: (10,000 × 0.10) + 300 = 1,300 토큰어치 🎉
+
+  절감: 2회차는 1회차 대비 약 90% 저렴 + 응답도 빠름
+
+analogy: |
+  출근 비유:
+  - Cache 없음 = 매일 회사 소개서·동료 이름·업무 매뉴얼 처음부터 다시 외우기
+    → 하루 3시간 낭비
+  - Cache 있음 = 한 번 외우면 기억. 매일 "새 할 일"만 추가로 받기
+    → 하루 30분이면 끝
+
+  모델 입장에서 10,000토큰 문맥을 "매번 처음 읽는 것"이 아니라
+  "이미 아는 것"으로 처리하면 엄청난 시간·비용 절감.
+
+what_to_cache:
+  highly_cacheable:
+    - "시스템 프롬프트 (거의 안 바뀜)"
+    - "도구 정의 (tool schema) — 한 세션 동안 고정"
+    - "CLAUDE.md 내용 (규칙·컨벤션)"
+    - "Few-shot 예시들 (학습용 샘플)"
+    - "긴 문서 (RAG로 찾은 참고 문서)"
+  not_cacheable:
+    - "사용자 메시지 (매번 다름)"
+    - "방금 받은 도구 실행 결과"
+    - "현재 시각 같은 동적 값"
+
+pricing_details:
+  anthropic_rates:
+    - "Cache Write: 기본 입력 토큰 비용의 1.25배 (25% 할증)"
+    - "Cache Read: 기본 입력 토큰 비용의 0.1배 (90% 할인)"
+    - "TTL: 기본 5분 (5 min extension), 1시간(1h extension, 2배 가격)"
+  break_even:
+    - "1회 Write(+25%) vs 1회 Read(-90%)"
+    - "→ 같은 내용을 2번 이상 쓰면 바로 이득"
+    - "→ 3번 쓰면 대략 40% 총 비용 절감"
+    - "→ 10번 쓰면 80% 절감"
+
+when_caching_breaks:
+  - "시스템 프롬프트 한 글자라도 바뀌면 → 캐시 무효 (처음부터)"
+  - "도구 목록에 새 도구 추가 → 캐시 무효"
+  - "TTL 5분 지나면 → 캐시 만료"
+  - "모델 버전 바뀌면 → 캐시 공유 안 됨 (Haiku vs Sonnet)"
+  - "Cache Breakpoint 위치 바뀌면 → 그 아래는 전부 무효"
+
+real_world_impact:
+  scenario_1:
+    name: "멀티턴 대화 (10턴)"
+    without_cache: "매 턴마다 10,000 토큰 시스템 전체 재로드 = 100,000 토큰 × 정가"
+    with_cache: "1턴만 Write(12,500), 2~10턴은 Read(1,000 × 9 = 9,000) = 21,500 토큰"
+    savings: "~78% 절감"
+  scenario_2:
+    name: "에이전트 배치 작업 (100개 이슈 처리)"
+    without_cache: "100 × 시스템 프롬프트 = 대량 정가"
+    with_cache: "1 Write + 99 Read → 월 $1,000 → 월 $200 수준"
+    savings: "~80% 절감"
+
+harness_applications:
+  - "Claude Code는 기본적으로 CLAUDE.md + 도구를 캐싱 → 체감 비용 낮음"
+  - "멀티 에이전트 시스템: 공통 시스템 프롬프트를 cache breakpoint로 설정"
+  - "긴 RAG 문서 캐싱: 같은 문서로 여러 질문 할 때 극효율"
+  - "Few-shot 학습용 예시 → 캐싱해두고 프로덕션 사용"
+
+pitfalls:
+  - "캐싱 의존해서 시스템 프롬프트 자주 바꾸면 오히려 비쌈"
+  - "작은 변경에도 전체 캐시 무효 — 마이크로 최적화 유혹 경계"
+  - "캐시 hit rate 모니터링 안 하면 '캐싱 쓰는 줄 알았는데 miss 투성이'"
+  - "개발 중에는 캐싱 방해가 되기도 (빠른 반복을 원할 때)"
+  - "보안: 캐시가 세션 간 공유되지 않는지 확인 (멀티테넌트 시스템)"
+
+monitoring_metrics:
+  - "cache_read_tokens — Read로 처리된 토큰 수 (많을수록 좋음)"
+  - "cache_write_tokens — Write로 처리된 토큰 수"
+  - "cache_hit_rate — Read / (Read + Write) 비율"
+  - "평균 비용/요청 — 캐싱 도입 전후 비교"
+
+exercise:
+  type: 판별
+  description: |
+    다음 상황에서 프롬프트 캐싱이 유효한가?
+    1. "매 요청마다 시스템 프롬프트를 랜덤 생성" → ?
+    2. "10,000토큰 CLAUDE.md + 매번 다른 사용자 질문" → ?
+    3. "작업 1회 실행 후 종료 (1회성 스크립트)" → ?
+    4. "6분 간격으로 같은 프롬프트 100번 호출" → ?
+    5. "동일한 RAG 문서로 20개 질문 연속" → ?
+
+concepts: []
+
+verdict: "프롬프트 캐싱이 언제 비용을 줄이는지 설명 가능, 뭐를 캐싱하고 뭐는 안 하는지 판별 가능 / Can explain when prompt caching saves money and identify what should (and should not) be cached"

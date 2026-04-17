@@ -11,7 +11,7 @@
 
 A self-study curriculum for understanding **Agent Harnesses** (the scaffolding around LLMs that turns a chatbot into a usable agent — tools, context, memory, safety, observability). Designed for **non-developers** who use Claude Code but don't write code themselves.
 
-- **21 modules** across 6 Phases + Advanced + Practical tracks
+- **23 modules** across 6 Phases + Advanced + Practical tracks
 - **Diagrams & analogies** instead of code
 - **Spaced repetition (FSRS v6)** keeps concepts in long-term memory
 - **4 quiz types** — True/False, Multiple Choice, Fill-in-the-blank, Short-answer
@@ -118,7 +118,7 @@ Issues and PRs welcome — especially for curriculum corrections and translation
 
 **에이전트 하네스(Agent Harness)** — LLM을 둘러싸고 있는 틀(도구, 컨텍스트, 메모리, 안전장치, 관측) — 을 이해하기 위한 **비개발자용 자습 커리큘럼**입니다. Claude Code를 쓰지만 직접 코드는 안 짜는 분들을 위해 만들었습니다.
 
-- **21개 모듈** — Phase 0~5 + 심화 + 실전
+- **23개 모듈** — Phase 0~5 + 심화 + 실전
 - **코드 대신 다이어그램과 비유** 중심
 - **FSRS v6 간격 반복**으로 장기 기억 형성
 - **4종 퀴즈** — OX / 선택형 / 빈칸 / 서술형

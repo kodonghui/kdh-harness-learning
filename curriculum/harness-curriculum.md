@@ -1,264 +1,166 @@
-# Agent Harness 교육과정 v2 (비개발자용)
-> Version: 2.0 | Created: 2026-04-10 | Refines: v1.0
-> 대상: 비개발자 (코딩 경험 없음, Claude Code로 모든 구현)
-> 방식: 다이어그램 + 구체적 설명 + 문제 시나리오 + 판정 문장
-> 근거: /kdh-research + /kdh-analyze + /kdh-discuss 3라운드 Codex PASS
+# Agent Harness Curriculum (Non-Developer Edition)
 
-## 교육과정 개요
+> **Audience:** Non-developers who use AI agents but don't write code.
+> **Method:** Diagrams, analogies, comparisons, concrete scenarios — no code required.
+> **Goal:** Understand, judge, and diagnose agent harnesses.
+>
+> **대상:** AI 에이전트를 쓰지만 직접 코드는 안 짜는 비개발자.
+> **방식:** 다이어그램, 비유, 비교, 구체적 시나리오 — 코드 불필요.
+> **목표:** 하네스를 이해하고, 판단하고, 진단할 수 있게.
+
+---
+
+## Overview / 개요
 
 ```
-기본 (7회, 30분±15분) ─── "하네스를 이해하고, 판단하고, 검증하기"
-  ├── Phase 0: 전체 그림 (1회)
-  ├── Phase 1: 하네스가 어떻게 굴러가는가 (3회)
-  └── Phase 2: 왜 망가지고 어떻게 복구하는가 (3회)
+Core (6 Phases × 3 modules = 18)  ── "Understand + judge + diagnose"
+  ├── Phase 0: Foundations              (agent, harness, agent loop)
+  ├── Phase 1: Tools & Connectivity     (tool layer, protocols, auth)
+  ├── Phase 2: Context & Memory         (context, memory, prompts)
+  ├── Phase 3: Execution & Workflow     (patterns, multi-agent, hooks)
+  ├── Phase 4: Safety & Verification    (state/safety, failure, security)
+  └── Phase 5: Observation & Ops        (observability, cost/perf, evaluation)
 
-심화 (2회, 선택) ─── "비교하고 설계하기"
+Advanced (2 modules, optional)    ── "Compare + design"
+Practical (3 modules)             ── "Build your own pipeline"
 
-실전 (3회) ─── "내 하네스 만들기" (CORTHEX와 별개)
+Total: 23 modules
 ```
 
-총 12회 (기본 7회 필수 + 심화 2회 선택 + 실전 3회)
+## Learning Principles / 학습 원칙
 
-## 학습 원칙
+1. **Harness knowledge is central** — not about operations or management skills.
+   하네스 지식이 중심 — 운영 스킬/매니지먼트 교육 아님.
+2. **No code reading** — config files, logs, pseudocode are OK; actual code is not required.
+   코드 읽기 불필요 — 설정 파일, 로그, 의사코드는 OK.
+3. **Diagram required** — every module has at least one Mermaid or ASCII diagram.
+   모든 모듈에 다이어그램 하나 이상.
+4. **"6 layers" as a working lens** — a tool for viewing harnesses, not the only correct view.
+   "6계층"은 정답이 아니라 하네스를 바라보는 작업용 렌즈.
+5. **Verdict sentence per module** — "After this module you can explain/distinguish ___."
+   모듈마다 판정 문장 — "이 모듈 후 ~를 설명/판별 가능".
+6. **Concrete, not over-analogized** — analogies help, but don't bury the real concept.
+   구체적이고 자세하게, 과한 비유 지양.
+7. **Real-world connection when natural** — no forced mapping to a specific product.
+   실무 연결은 자연스러운 곳에만 — 억지 매핑 금지.
 
-1. **하네스 지식이 중심** — CEO 역할론이나 운영 스킬 교육이 아님
-2. **코드 읽기 금지** — 설정 파일, 로그, 의사코드(pseudocode)는 OK
-3. **다이어그램 필수** — 매 Module에 mermaid 또는 ASCII 다이어그램 1개 이상
-4. **6계층 = 작업용 렌즈** — 정답이 아니라 하네스를 바라보는 도구
-5. **매 Module에 판정 문장** — "이 Module을 마치면 ~를 설명/판별 가능"
-6. **구체적이고 자세하게, 과한 비유 지양**
-7. **CORTHEX 연결은 자연스러운 곳만** — 억지 균등 배분 안 함
-8. **CORTHEX는 개발 중** — 스텁/미완성은 결함이 아니라 정상 상태
+## Verdict Rules / 판정 규칙
 
-## 판정 문장 규칙
-
-- 형식: "~를 설명 가능" 또는 "~를 판별 가능" 또는 "~를 사례로 설명 가능"
-- 검증: 학습자가 Claude 없이 한국어로 해당 내용을 말할 수 있으면 통과
-- 실패 시: 해당 Module 복습 후 재시도
-
----
-
-## Phase 0: 하네스 전체 그림 (1회, 30분)
-
-**한 줄:** 하네스가 뭔지, 어디까지가 하네스이고 어디부터가 모델인지 구분한다.
-
-### 내용
-
-| 항목 | 상세 |
-|------|------|
-| 핵심 개념쌍 5조 | 하네스 vs 모델 / 도구 vs 스킬 / 컨텍스트 vs 메모리 / 실패감지 vs 복구 / 에이전트 능력 vs 하네스 책임 |
-| 요청 1건의 여정 | 입력 → 규칙 확인 → 도구 선택 → 실행 → 응답 (flowchart) |
-| 6계층 위치 | 여정 위에 도구/컨텍스트/검증/상태/안전/관측 계층 표시 (작업용 렌즈) |
-| CORTHEX 연결 | "우리 CORTHEX에서 이 여정은 agent-engine.ts가 담당" |
-| 감별 | 동희님의 에이전트 33개 중 5개 골라서 "이게 뭐하는 건지" 설명 |
-
-concepts: agent-harness, tool, context-window, stub, circuit-breaker
-
-### 판정
-"하네스와 모델의 차이를 한 문장으로 설명 가능"
+- **Format** — "Can explain ___" / "Can distinguish ___" / "Can illustrate ___ with an example"
+  형식 — "~를 설명 가능" / "~를 판별 가능" / "~를 사례로 설명 가능"
+- **Verification** — Learner can state it in their own language without AI assistance.
+  검증 — 학습자가 AI 없이 자기 언어로 말할 수 있으면 통과.
+- **On failure** — Re-review the module and retry.
+  실패 시 — 해당 모듈 복습 후 재시도.
 
 ---
 
-## Phase 1: 하네스가 어떻게 굴러가는가 (3회)
+## Module Index / 모듈 인덱스
 
-### M1: 도구 계층 (30분)
+### Phase 0 — Foundations / 기초 (3 modules)
 
-**한 줄:** 에이전트가 쓸 수 있는 기능(도구)을 어떻게 관리하고 제한하는가.
+| # | Module | Title | Duration |
+|---|--------|-------|---------|
+| 0 | `p0-m0-agent` | 에이전트란 뭔가 / What is an agent | 20 min |
+| 1 | `p0-harness-overview` | 하네스 전체 그림 / Harness overview | 30 min |
+| 2 | `p0-m2-agent-loop` | 에이전트 루프 / Agent loop | 20 min |
 
-| 항목 | 상세 |
-|------|------|
-| 핵심 개념 | 도구 레지스트리, 권한 게이트, 도구 수와 성능의 관계 |
-| 문제 시나리오 | "도구가 너무 많으면?" — Vercel 80% 제거 사례 |
-| 다이어그램 | 도구 레지스트리 구조 (어떤 도구가 어떤 권한으로 등록되는지) |
-| 읽기 허용 | 설정 파일(tools 정의), 의사코드 |
-| CORTHEX 연결 | tools/index.ts가 이 역할 (현재 Phase 2 기초 수준) |
+### Phase 1 — Tools & Connectivity / 도구와 연결 (3 modules)
 
-concepts: tool-registry, permission-gate, tool-schema
+| # | Module | Title | Duration |
+|---|--------|-------|---------|
+| 3 | `p1-m1-tools` | 도구 계층 / Tool layer | 30 min |
+| 4 | `p1-m2-protocols` | 프로토콜 / Protocols (API, MCP, A2A) | 25 min |
+| 5 | `p1-m3-auth-connect` | 인증과 연결 / Auth & connectivity | 25 min |
 
-### 판정
-"도구 레지스트리가 왜 필요한지 설명 가능"
+### Phase 2 — Context & Memory / 컨텍스트와 메모리 (3 modules)
 
----
+| # | Module | Title | Duration |
+|---|--------|-------|---------|
+| 6 | `p2-m1-context` | 컨텍스트 윈도우 심화 / Context window deep-dive | 25 min |
+| 7 | `p2-m2-memory` | 메모리 시스템 / Memory systems | 25 min |
+| 8 | `p2-m3-prompt` | 프롬프트와 지시 / Prompts & instructions | 25 min |
 
-### M2: 컨텍스트 계층 (30분)
+### Phase 3 — Execution & Workflow / 실행과 워크플로우 (3 modules)
 
-**한 줄:** AI가 "기억"하는 범위와 한계, 그리고 넘치면 어떻게 줄이는가.
+| # | Module | Title | Duration |
+|---|--------|-------|---------|
+| 9  | `p3-m1-patterns` | 실행 패턴 / Execution patterns (ReAct, Plan-and-Execute) | 25 min |
+| 10 | `p3-m2-multi-agent` | 서브에이전트와 멀티에이전트 / Sub-agents & multi-agent | 25 min |
+| 11 | `p3-m3-hooks` | 훅과 자동화 / Hooks & automation | 25 min |
 
-| 항목 | 상세 |
-|------|------|
-| 핵심 개념 | 컨텍스트 윈도우, 토큰, 3단계 압축(Micro/Auto/Full), 비용-정확도 trade-off |
-| 문제 시나리오 | "대화가 길어지면 왜 터지나?" — 토큰 한도 초과 |
-| 다이어그램 | 컨텍스트 윈도우 시각화 (뭐가 들어가고 밀려나는지) |
-| CORTHEX 연결 | 현재 전체 이력 로드, 압축 없음 → Phase 3+에서 필요할 기능 |
+### Phase 4 — Safety & Verification / 안전과 검증 (3 modules)
 
-concepts: context-window, token, compaction, token-budget
+| # | Module | Title | Duration |
+|---|--------|-------|---------|
+| 12 | `p4-m1-state-safety` | 상태 관리와 안전장치 / State management & safety | 30 min |
+| 13 | `p4-m2-failure` | 실패감지와 복구 / Failure detection & recovery | 25 min |
+| 14 | `p4-m3-security` | 보안 / Security (prompt injection, sandbox, secrets) | 25 min |
 
-### 판정
-"압축이 필요한 이유와 3단계(Micro/Auto/Full)를 설명 가능"
+### Phase 5 — Observation & Ops / 관측과 운영 (3 modules)
 
----
+| # | Module | Title | Duration |
+|---|--------|-------|---------|
+| 15 | `p5-m1-observability` | 관측성 / Observability (logs, tracing, monitoring) | 25 min |
+| 16 | `p5-m2-cost-perf` | 비용과 성능 / Cost & performance | 25 min |
+| 17 | `p5-m3-evaluation` | 평가와 벤치마크 / Evaluation & benchmarks | 20 min |
 
-### M3: 상태 + 안전 + 권한 (30분)
+### Advanced / 심화 (2 modules, optional)
 
-**한 줄:** 에이전트의 작업 상태를 어떻게 관리하고, 폭주를 어떻게 막는가.
+| # | Module | Title | Duration |
+|---|--------|-------|---------|
+| 18 | `adv-m1-comparison` | 하네스 공통 패턴 비교 / Compare real harnesses | 30 min |
+| 19 | `adv-m2-design` | 하네스 설계 실습 / Design your own harness | 30 min |
 
-| 항목 | 상세 |
-|------|------|
-| 핵심 개념 | 세션 관리, 서킷브레이커, 토큰 예산, 작업 큐, 동시성 제어, 인간 승인 포인트 |
-| 문제 시나리오 | "무한루프 비용 폭탄" — 250,000 API 콜/일 사고 |
-| 다이어그램 | 서킷브레이커 동작 흐름 (정상 → 실패감지 → 차단 → 재시도) |
-| CORTHEX 연결 | pg-boss 큐, maxLoops:10, 429/500 리트라이 있음. 시스템 전체 서킷브레이커는 없음 |
+### Practical / 실전 (3 modules)
 
-concepts: session-management, circuit-breaker, concurrency-control, human-approval
-
-### 판정
-"서킷브레이커와 재시도의 차이를 사례로 설명 가능"
-
----
-
-## Phase 2: 왜 망가지고 어떻게 복구하는가 (3회)
-
-### M1: 실패 유형 + 경계 진단 (30분)
-
-**한 줄:** 에러가 나왔을 때, 모델 문제인지 프롬프트 문제인지 하네스 문제인지 구분한다.
-
-| 항목 | 상세 |
-|------|------|
-| 핵심 개념 | 실패 3경계(모델/프롬프트/하네스), 실패 유형 분류(타임아웃/루프/토큰초과/API에러/크래시) |
-| 문제 시나리오 | "AI가 이상한 답을 했다 — 어디가 문제인가?" |
-| 다이어그램 | 실패 판정 플로우차트 (증상 → 경계 판별 → 대응) |
-| CORTHEX 연결 | agent-engine의 에러 핸들링(RATE_LIMITED, SERVICE_UNAVAILABLE, EXECUTION_ERROR) |
-
-concepts: failure-boundary, failure-taxonomy, error-diagnosis
-
-### 판정
-"에러가 나왔을 때 3가지(모델/프롬프트/하네스) 중 어디 문제인지 판별 가능"
+| # | Module | Title | Duration |
+|---|--------|-------|---------|
+| 20 | `prac-m1-design` | 파이프라인 설계 / Pipeline design | 45 min |
+| 21 | `prac-m2-build` | 파이프라인 구현 / Pipeline build | 60+ min |
+| 22 | `prac-m3-operate` | 파이프라인 운영 / Pipeline operate & compare | 45 min |
 
 ---
 
-### M2: 복구 패턴 (30분)
+## How to Use / 사용법
 
-**한 줄:** 실패 후 어떻게 살리는가 — 체크포인트, 죽은 작업 큐, 멀티에이전트 조정.
+1. Open Claude Code in this repo.
+2. Run `/kdh-study [topic]` to start any module.
+3. Each module YAML under `curriculum/modules/` is the canonical spec.
+4. Your personal progress, FSRS cards, and notes stay local (gitignored).
 
-| 항목 | 상세 |
-|------|------|
-| 핵심 개념 | 체크포인트(저장점), DLQ(Dead Letter Queue), 크래시 복구, 그레이스풀 종료, 멀티에이전트 조정 |
-| 문제 시나리오 | "에이전트가 중간에 죽었다 — 처음부터 다시?" |
-| 다이어그램 | 복구 의사결정 트리 (실패 유형 → 복구 경로 선택) |
-| CORTHEX 연결 | DLQ는 TODO만 있음(queue.ts:246), git 기반 롤백 가능, 체크포인팅 없음 |
+1. 이 레포에서 Claude Code를 엽니다.
+2. `/kdh-study [주제]`로 모듈 시작.
+3. `curriculum/modules/` 아래 각 YAML이 정전(canonical) 스펙.
+4. 개인 진도, FSRS 카드, 노트는 전부 로컬 전용(gitignore).
 
-concepts: checkpoint, dead-letter-queue, crash-recovery, graceful-shutdown
+## Module YAML Schema
 
-### 판정
-"복구 패턴 3가지(체크포인트/DLQ/크래시복구)를 이름+용도로 설명 가능"
+```yaml
+title: "Module title"
+phase: 0-5 | advanced | practical
+module: 0-3
+track: basic | advanced | practical
+duration: "30min"
+objective: "One-sentence learning goal"
 
----
+key_concepts: [...]
+concept_pairs: [["A", "B"], ...]
 
-### M3: 관측성 + 검증 (30분)
+diagram_type: flowchart | sequence | structure | state | comparison | none
+diagram_title: "..."
+diagram_description: |
+  (Mermaid or ASCII diagram description)
 
-**한 줄:** 뭘 보면 문제인지 아는가, 좋은 하네스와 나쁜 하네스를 어떻게 구분하는가.
+exercise:
+  type: 구분 | 설명 | 진단 | 설계
+  description: "..."
 
-| 항목 | 상세 |
-|------|------|
-| 핵심 개념 | 관측성(로그, 토큰 추적, 이벤트), 하네스 품질 판정 기준, 하네스 진단 카드 |
-| 문제 시나리오 | "하네스가 잘 돌아가는 것 같은데, 정말 잘 돌아가는 건가?" |
-| 다이어그램 | 관측 포인트 다이어그램 (어디서 뭘 측정하는가) |
-| 산출물 | 하네스 진단 카드 (경계설정/실패감지/복구/관측성/비용통제/테스트) |
-| CORTHEX 연결 | run_events 테이블, 토큰 사용량 기록(inputTokens/outputTokens) |
+concepts:                  # slugs of related concept cards
+  - agent
+  - agent-loop
 
-concepts: observability, harness-quality, monitoring
+verdict: "After this module, the learner can ___"
+```
 
-### 판정
-"하네스 품질을 판단하는 기준 3가지를 제시 가능"
-
----
-
-## 심화: 비교하고 설계하기 (2회, 선택)
-
-### M1: 하네스 공통 패턴 비교 (30분)
-
-**한 줄:** 같은 문제(예: 컨텍스트 관리)를 다른 하네스가 어떻게 풀었는지 구조 비교.
-
-| 항목 | 상세 |
-|------|------|
-| 비교 대상 | Claude Code, claw-code, Managed Agents, OpenDev |
-| 비교 축 | 컨텍스트 관리, 도구 시스템, 실패 복구, 관측성 |
-| 다이어그램 | 비교표 + 구조 다이어그램 (벤더 인상평이 아닌 패턴 비교) |
-
-### 판정
-"같은 문제를 2개 이상의 하네스가 다르게 푸는 사례를 설명 가능"
-
----
-
-### M2: 하네스 설계 실습 (30분)
-
-**한 줄:** 새 프로젝트가 있다면 하네스를 어떻게 설계할지 판단 연습.
-
-| 항목 | 상세 |
-|------|------|
-| 실습 | 가상 프로젝트 요구사항 → 하네스 요구사항 5개 항목 도출 |
-| 항목 예시 | 도구 목록, 컨텍스트 전략, 실패 복구 방식, 관측 범위, 비용 제한 |
-
-### 판정
-"새 프로젝트의 하네스 요구사항을 5개 항목으로 정리 가능"
-
----
-
-## 실전: 내 하네스 만들기 (3회, CORTHEX와 별개)
-
-### M1: 미니 하네스 설계 (30분)
-
-**한 줄:** Claude Agent SDK 기반으로 동희님 필요 기능만 갖춘 미니 하네스를 설계한다.
-
-| 항목 | 상세 |
-|------|------|
-| 설계 범위 | 도구 3~5개 + 서킷브레이커 + 기본 컨텍스트 관리 |
-| 산출물 | 요구사항 정의서 + Claude Code에게 줄 설계 지시문 |
-| 방식 | 동희님이 요구사항 작성 → Claude Code에게 설계 지시 |
-
-### 판정
-"미니 하네스 요구사항 정의서를 작성 가능"
-
----
-
-### M2: 구현 (30분~45분)
-
-**한 줄:** Claude Code가 코드를 작성하고, 동희님이 결과를 판정한다.
-
-| 항목 | 상세 |
-|------|------|
-| 구현 주체 | Claude Code (동희님은 코딩하지 않음) |
-| 동희님 역할 | 지시 → 결과 확인 → "이건 맞나?" 판정 |
-| 검증 | 실제 실행해서 동작 확인 |
-
-**Downgrade 경로 (어려우면):**
-1단계: Claude Agent SDK로 실제 구현 (기본)
-2단계: 설정 파일 기반 조립 (코드 아닌 설정만)
-3단계: 로그 기반 가상 운영 (기존 하네스의 로그를 읽고 판단)
-
-### 판정
-"Claude Code에게 구현을 시키고, 결과가 요구사항을 충족하는지 판정 가능"
-
----
-
-### M3: 운영 + 개선 (30분)
-
-**한 줄:** 실제로 돌려보고 문제를 발견하고 개선을 지시한다.
-
-| 항목 | 상세 |
-|------|------|
-| 운영 | 미니 하네스에 실제 요청을 보내고 결과 관찰 |
-| 개선 | 발견한 문제 → 개선 지시 → Claude Code가 수정 → 재검증 |
-| 산출물 | 동작하는 미니 하네스 1개 + 개선 이력 |
-
-### 판정
-"운영 중 발견한 문제를 명확한 지시로 전환 가능"
-
----
-
-## kdh-study 연동
-
-- 각 Module의 concepts 필드에 나열된 주제를 /kdh-study로 학습
-- 학습 시 notes/{slug}.md 자동 생성 (schema.md 계약 준수)
-- Phase 2 M3 완료 시 하네스 진단 카드 생성
-- 전체 학습 완료 후 /kdh-study export → /md-to-pdf로 PDF 변환
+See `../schema.md` for the full contract, including concept card and profile schemas.

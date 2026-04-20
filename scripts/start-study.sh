@@ -25,6 +25,14 @@ if [ ! -d "$CWD" ]; then
   exit 1
 fi
 
+# Auto-update Claude Code CLI to latest (CEO 지시 2026-04-20). 30s timeout — best-effort.
+# SKIP_CLAUDE_UPDATE=1 로 스킵 가능.
+if [ "${SKIP_CLAUDE_UPDATE:-0}" != "1" ] && command -v npm >/dev/null 2>&1; then
+  echo "Claude Code CLI 최신 버전 업데이트 중... (SKIP_CLAUDE_UPDATE=1 로 건너뜀 가능)"
+  timeout 30 npm install -g @anthropic-ai/claude-code@latest 2>&1 | tail -3 || \
+    echo "[WARN] claude 업데이트 실패/타임아웃. 기존 버전으로 계속 진행."
+fi
+
 echo "tmux study 세션 시작 (CWD=$CWD)..."
 tmux new -s "$SESSION" -d -c "$CWD" "$WRAPPER"
 

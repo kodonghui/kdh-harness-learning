@@ -23,9 +23,9 @@ exports/*.md
 # 개인 프로필 (학습자별 상태) — 템플릿은 추적, 실제 사용분은 로컬만
 profile.local.yaml
 
-# Personal convenience scripts (WSL/tmux bootstrap, etc.)
-# 개인 편의 스크립트
-scripts/start-*.sh
+# Personal convenience scripts: conductor-specific only (owned by kdh-conductor repo).
+# study/work bootstrap 은 이 리포 소관이라 추적한다.
+scripts/start-conductor.sh
 
 # Observation/telemetry output
 # 관측/텔레메트리 출력
